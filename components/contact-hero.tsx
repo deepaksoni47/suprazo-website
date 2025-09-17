@@ -150,7 +150,7 @@ export function ContactHero() {
           style={{ animationDelay: "2s" }}
         />
         <div
-          className="absolute w-80 h-80 md:w-96 md:h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl opacity-60 transition-all duration-700 ease-out pointer-events-none"
+          className="absolute w-80 h-80 md:w-96 md:h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl opacity-60 pointer-events-none"
           style={{
             left: mousePosition.x - 160,
             top: mousePosition.y - 160,

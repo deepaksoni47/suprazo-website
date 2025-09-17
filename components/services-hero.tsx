@@ -41,18 +41,12 @@ export function ServicesHero() {
     setMousePosition({ x: e.clientX, y: e.clientY });
   }, []);
   useEffect(() => {
-    let timeoutId: number;
-    const throttledMouseMove = (e: MouseEvent) => {
-      if (timeoutId) return;
-      timeoutId = window.setTimeout(() => {
-        handleMouseMove(e);
-        timeoutId = 0;
-      }, 16);
+    const smoothMouseMove = (e: MouseEvent) => {
+      handleMouseMove(e);
     };
-    window.addEventListener("mousemove", throttledMouseMove);
+    window.addEventListener("mousemove", smoothMouseMove, { passive: true });
     return () => {
-      window.removeEventListener("mousemove", throttledMouseMove);
-      if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener("mousemove", smoothMouseMove);
     };
   }, [handleMouseMove]);
   useEffect(() => {

@@ -12,11 +12,34 @@ import {
 export function Footer() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [time, setTime] = useState(0);
+  const [floatingElements, setFloatingElements] = useState<
+    Array<{
+      id: number;
+      width: number;
+      height: number;
+      left: number;
+      top: number;
+      delay: number;
+      duration: number;
+    }>
+  >([]);
   useEffect(() => {
+    // Generate floating elements only on client side
+    const elements = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      width: 2 + Math.random() * 2,
+      height: 2 + Math.random() * 2,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 6,
+      duration: 4 + Math.random() * 4,
+    }));
+    setFloatingElements(elements);
+
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = e.currentTarget as Element;
-      if (rect) {
-        const footerRect = rect.getBoundingClientRect();
+      const footerElement = document.querySelector("footer");
+      if (footerElement) {
+        const footerRect = footerElement.getBoundingClientRect();
         setMousePosition({
           x: e.clientX - footerRect.left,
           y: e.clientY - footerRect.top,
@@ -115,20 +138,20 @@ export function Footer() {
           }}
         />
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {floatingElements.map((element) => (
             <div
-              key={i}
+              key={element.id}
               className="absolute rounded-full animate-float"
               style={{
-                width: `${2 + Math.random() * 2}px`,
-                height: `${2 + Math.random() * 2}px`,
+                width: `${element.width}px`,
+                height: `${element.height}px`,
                 background: `radial-gradient(circle,
-                  hsla(${210 + i * 20}, 70%, 70%, 0.6),
-                  hsla(${270 + i * 15}, 80%, 80%, 0.4))`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${4 + Math.random() * 4}s`,
+                  hsla(${210 + element.id * 20}, 70%, 70%, 0.6),
+                  hsla(${270 + element.id * 15}, 80%, 80%, 0.4))`,
+                left: `${element.left}%`,
+                top: `${element.top}%`,
+                animationDelay: `${element.delay}s`,
+                animationDuration: `${element.duration}s`,
                 filter: "blur(1px)",
               }}
             />
@@ -272,13 +295,13 @@ export function Footer() {
         <div className="relative border-t border-border mt-8 pt-8">
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
           <div className="text-center group">
-            <p className="text-foreground/60 hover:text-foreground/80 transition-all duration-300 relative">
+            <div className="text-foreground/60 hover:text-foreground/80 transition-all duration-300 relative">
               <span className="relative z-10">
                 &copy; {new Date().getFullYear()} SuPrazo Technologies. All
                 rights reserved.
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
-            </p>
+            </div>
             <div className="mt-2 flex justify-center space-x-6 text-sm">
               <Link
                 href="/privacy"

@@ -1,319 +1,286 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Play } from "lucide-react";
+
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(timer);
-    };
+  const heroRef = useRef<HTMLElement>(null);
+  const particleRefs = useRef<HTMLDivElement[]>([]);
+
+  // Optimized particle system - client-side only to avoid hydration mismatch
+  const [particles, setParticles] = useState<
+    Array<{
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      delay: number;
+      speed: number;
+    }>
+  >([]);
+
+  // Smooth mouse tracking with throttling
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!heroRef.current) return;
+
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setMousePosition({ x, y });
   }, []);
+
+  // Magnetic button effect
+  const handleButtonHover = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = (e.clientX - centerX) * 0.15;
+      const deltaY = (e.clientY - centerY) * 0.15;
+
+      e.currentTarget.style.setProperty("--mouse-x", `${deltaX}px`);
+      e.currentTarget.style.setProperty("--mouse-y", `${deltaY}px`);
+    },
+    []
+  );
+
+  const handleButtonLeave = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.currentTarget.style.setProperty("--mouse-x", "0px");
+      e.currentTarget.style.setProperty("--mouse-y", "0px");
+    },
+    []
+  );
+
+  useEffect(() => {
+    // Generate particles only on client side to avoid hydration mismatch
+    setParticles(
+      Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 3 + 1,
+        delay: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.2,
+      }))
+    );
+
+    // Smooth initialization
+    const timer = setTimeout(() => setIsLoaded(true), 200);
+
+    // Smooth continuous mouse movement tracking
+    const smoothMouseMove = (e: MouseEvent) => {
+      handleMouseMove(e);
+    };
+
+    window.addEventListener("mousemove", smoothMouseMove, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", smoothMouseMove);
+    };
+  }, [handleMouseMove]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <>
       <style jsx>{`
-        @keyframes slideUpFade {
-          0% {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes slideUpFadeScale {
-          0% {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        @keyframes fadeInScale {
-          0% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        @keyframes expandWidth {
-          0% {
-            width: 0;
-            opacity: 0;
-          }
-          100% {
-            width: 100%;
-            opacity: 1;
-          }
-        }
-        @keyframes float {
+        @keyframes excellence-glow {
           0%,
           100% {
-            transform: translateY(0px) rotate(0deg);
+            color: #3b82f6;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+              0 0 40px rgba(59, 130, 246, 0.4);
           }
-          33% {
-            transform: translateY(-20px) rotate(1deg);
-          }
-          66% {
-            transform: translateY(-10px) rotate(-1deg);
-          }
-        }
-        @keyframes glow {
-          0%,
-          100% {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+          25% {
+            color: #8b5cf6;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.6),
+              0 0 40px rgba(139, 92, 246, 0.4);
           }
           50% {
-            box-shadow: 0 0 30px rgba(147, 51, 234, 0.4),
-              0 0 40px rgba(59, 130, 246, 0.2);
+            color: #06b6d4;
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.6),
+              0 0 40px rgba(6, 182, 212, 0.4);
+          }
+          75% {
+            color: #10b981;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.6),
+              0 0 40px rgba(16, 185, 129, 0.4);
           }
         }
-        @keyframes scrollBounce {
-          0%,
-          20%,
-          53%,
-          80%,
-          100% {
-            transform: translateY(0) scale(1);
-          }
-          40%,
-          43% {
-            transform: translateY(-8px) scale(1.05);
-          }
-          70% {
-            transform: translateY(-4px) scale(1.02);
-          }
-        }
-        @keyframes scrollDot {
-          0% {
-            transform: translateY(0);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translateY(12px);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(24px);
-            opacity: 0;
-          }
-        }
-        @keyframes scrollGlow {
-          0%,
-          100% {
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3),
-              0 0 20px rgba(59, 130, 246, 0.2),
-              inset 0 0 10px rgba(59, 130, 246, 0.1);
-          }
-          50% {
-            box-shadow: 0 0 20px rgba(147, 51, 234, 0.4),
-              0 0 30px rgba(59, 130, 246, 0.3),
-              inset 0 0 15px rgba(147, 51, 234, 0.2);
-          }
-        }
-        @keyframes scrollPulse {
-          0%,
-          100% {
-            opacity: 0.6;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.1);
-          }
-        }
-        .animate-slide-up-1 {
-          animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 0.2s;
-          opacity: 0;
-        }
-        .animate-slide-up-2 {
-          animation: slideUpFadeScale 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 0.4s;
-          opacity: 0;
-        }
-        .animate-slide-up-3 {
-          animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 0.6s;
-          opacity: 0;
-        }
-        .animate-slide-up-4 {
-          animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 0.8s;
-          opacity: 0;
-        }
-        .animate-slide-up-5 {
-          animation: fadeInScale 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 1s;
-          opacity: 0;
-        }
-        .animate-expand-line {
-          animation: expandWidth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
-          animation-delay: 0.1s;
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-        .animate-glow {
-          animation: glow 3s ease-in-out infinite;
-        }
-        .animate-scroll-bounce {
-          animation: scrollBounce 2s ease-in-out infinite;
-        }
-        .animate-scroll-dot {
-          animation: scrollDot 2s ease-in-out infinite;
-        }
-        .animate-scroll-glow {
-          animation: scrollGlow 3s ease-in-out infinite;
-        }
-        .animate-scroll-pulse {
-          animation: scrollPulse 2s ease-in-out infinite;
-        }
-        .loaded .animate-slide-up-1,
-        .loaded .animate-slide-up-2,
-        .loaded .animate-slide-up-3,
-        .loaded .animate-slide-up-4,
-        .loaded .animate-slide-up-5 {
-          animation-play-state: running;
+        .excellence-text {
+          animation: excellence-glow 4s ease-in-out infinite;
+          font-weight: bold;
+          display: block !important;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
       `}</style>
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10">
-        <div className="absolute top-1/3 left-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent overflow-hidden">
-          <div
-            className={`h-full bg-gradient-to-r from-primary/80 to-secondary/80 ${
-              isLoaded ? "animate-expand-line" : ""
-            } w-0`}
-          />
-        </div>
-        <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        {/* Mesh Background */}
+        <div className="absolute inset-0 mesh-bg opacity-40" />
+
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 grid-pattern opacity-20" />
+
+        {/* Interactive Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          {particles.map((particle, index) => (
             <div
-              key={i}
-              className={`absolute rounded-full animate-float ${
-                isLoaded ? "opacity-100" : "opacity-0"
-              }`}
+              key={particle.id}
+              ref={(el) => {
+                particleRefs.current[index] = el!;
+              }}
+              className="particle absolute"
               style={{
-                width: `${Math.random() * 3 + 2}px`,
-                height: `${Math.random() * 3 + 2}px`,
-                background: `radial-gradient(circle, rgba(59,130,246,0.4), rgba(147,51,234,0.3) 70%)`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                filter: "blur(1px)",
-                animationDelay: `${Math.random() * 6 + 1}s`,
-                animationDuration: `${4 + Math.random() * 4}s`,
-                transition: "opacity 2s ease-out",
-                transitionDelay: `${1.2 + Math.random() * 0.5}s`,
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                background: `radial-gradient(circle, hsl(214 100% 65% / 0.8), hsl(270 100% 70% / 0.4))`,
+                animationDelay: `${particle.delay}s`,
+                transform: `translate3d(${
+                  (mousePosition.x - particle.x) * particle.speed * 0.1
+                }px, ${
+                  (mousePosition.y - particle.y) * particle.speed * 0.1
+                }px, 0)`,
+                opacity: isLoaded ? 0.6 : 0,
               }}
             />
           ))}
         </div>
+
+        {/* Dynamic Light Follow */}
         <div
-          className={`absolute w-96 h-96 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full blur-3xl transition-all duration-1000 ease-out ${
-            isLoaded ? "opacity-40" : "opacity-0"
-          }`}
+          className="absolute w-96 h-96 rounded-full pointer-events-none"
           style={{
-            left: mousePosition.x - 192,
-            top: mousePosition.y - 192,
-            transitionDelay: isLoaded ? "0s" : "0.5s",
+            background: `radial-gradient(circle, hsl(214 100% 65% / 0.15) 0%, hsl(270 100% 70% / 0.1) 40%, transparent 70%)`,
+            left: `${mousePosition.x}%`,
+            top: `${mousePosition.y}%`,
+            transform: "translate(-50%, -50%)",
+            filter: "blur(40px)",
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.3s ease-out",
           }}
         />
+
+        {/* Main Content */}
         <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            isLoaded ? "opacity-10" : "opacity-0"
+          className={`relative z-10 container mx-auto px-6 text-center ${
+            isLoaded ? "loaded" : ""
           }`}
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(147,51,234,0.08) 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
-            transitionDelay: "0.8s",
-          }}
-        />
-      </div>
-      <div
-        className={`relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center ${
-          isLoaded ? "loaded" : ""
-        }`}
-      >
-        <div className="max-w-4xl mx-auto">
-          <div className="animate-slide-up-1 mb-8">
-            <div className="inline-flex items-center space-x-2 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg animate-glow">
-              <Sparkles className="w-4 h-4 text-secondary" />
-              <span className="text-sm font-medium text-white">
-                Innovative IT Solutions
+        >
+          <div className="max-w-5xl mx-auto">
+            {/* Badge */}
+            <div className="animate-slide-up-1 mb-8">
+              <div className="inline-flex items-center gap-3 glass-hero px-6 py-3 rounded-full">
+                <div className="w-2 h-2 bg-primary rounded-full animate-glow" />
+                <span className="text-sm font-medium text-primary">
+                  Next-Gen IT Solutions
+                </span>
+                <Sparkles className="w-4 h-4 text-accent" />
+              </div>
+            </div>
+
+            {/* Main Heading */}
+            <div className="mb-8 space-y-4">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+                <span className="block animate-slide-up-1 text-foreground">
+                  Crafting Digital
+                </span>
+                <span
+                  className="block animate-slide-up-2 excellence-text"
+                  style={{
+                    fontSize: "inherit",
+                    fontWeight: "inherit",
+                    lineHeight: "inherit",
+                  }}
+                >
+                  Excellence
+                </span>
+                <span className="block animate-slide-up-3 text-foreground/90 text-4xl md:text-5xl lg:text-6xl mt-2">
+                  Beyond Boundaries
+                </span>
+              </h1>
+            </div>
+
+            {/* Subtitle */}
+            <p className="animate-slide-up-3 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-12">
+              Transforming ambitious ideas into extraordinary digital
+              experiences with
+              <span className="text-primary font-semibold">
+                {" "}
+                cutting-edge technology
+              </span>{" "}
+              and
+              <span className="text-accent font-semibold">
+                {" "}
+                innovative design
               </span>
+              .
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="animate-scale-in flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+              <Button
+                size="lg"
+                className="btn-hero magnetic px-8 py-4 text-lg font-semibold rounded-full group"
+                onMouseMove={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Start Your Project
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Button>
+
+              <Button
+                size="lg"
+                variant="outline"
+                className="btn-ghost magnetic px-8 py-4 text-lg font-semibold rounded-full group"
+                onMouseMove={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <Play className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
+                Watch Demo
+              </Button>
             </div>
           </div>
-          <div className="mb-6">
-            <h1 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-foreground leading-tight">
-              <span className="block animate-slide-up-2">Driving Digital</span>
-              <span
-                className="block text-primary animate-slide-up-2"
-                style={{ animationDelay: "0.5s" }}
-              >
-                Excellence
-              </span>
-              <span
-                className="block animate-slide-up-2"
-                style={{ animationDelay: "0.7s" }}
-              >
-                with Smart IT Solutions
-              </span>
-            </h1>
-          </div>
-          <p className="animate-slide-up-3 text-xl md:text-2xl text-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Transform your business with cutting-edge web development, mobile
-            applications, ERP systems, and AI/ML solutions crafted by industry
-            experts.
-          </p>
-          <div className="animate-slide-up-4 flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 transform"
-            >
-              Get Started
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="glass border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-transparent transform"
-            >
-              View Our Work
-            </Button>
+        </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-1/4 right-8 animate-scale-in opacity-60">
+          <div className="glass w-20 h-20 rounded-2xl flex items-center justify-center rotate-12 hover:rotate-0 transition-all duration-500">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg animate-glow" />
           </div>
         </div>
-      </div>
-      <div
-        className={`absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-1/2 hidden lg:block transition-opacity duration-1000 ${
-          isLoaded ? "opacity-20" : "opacity-0"
-        }`}
-        style={{ transitionDelay: "1.5s" }}
-      >
-        <div className="w-full h-full bg-gradient-to-l from-primary/30 to-transparent rounded-l-full animate-pulse" />
-      </div>
-    </section>
+
+        <div
+          className="absolute bottom-1/4 left-8 animate-scale-in opacity-60"
+          style={{ animationDelay: "0.4s" }}
+        >
+          <div className="glass w-16 h-16 rounded-full flex items-center justify-center -rotate-12 hover:rotate-0 transition-all duration-500">
+            <Sparkles className="w-6 h-6 text-accent" />
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-scale-in opacity-60"
+          style={{ animationDelay: "1.2s" }}
+        >
+          <div className="flex flex-col items-center gap-2 text-muted-foreground">
+            <span className="text-xs uppercase tracking-wider">Scroll</span>
+            <div className="w-px h-8 bg-gradient-to-b from-primary to-transparent" />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

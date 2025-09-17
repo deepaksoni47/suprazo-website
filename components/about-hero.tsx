@@ -183,12 +183,13 @@ export function AboutHero() {
       `}</style>
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5">
         <div
-          className={`absolute w-96 h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl transition-all duration-1000 ease-out ${
+          className={`absolute w-96 h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl ${
             isVisible ? "opacity-70" : "opacity-0"
           }`}
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
+            transition: "opacity 0.3s ease-out",
           }}
         />
         <div
