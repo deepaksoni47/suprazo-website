@@ -38,12 +38,14 @@ A modern, high-performance Next.js website for SuPrazo Technologies, featuring a
 ## 🛠️ Getting Started
 
 ### 1. Clone the Repository
+
 ```sh
 git clone https://github.com/deepaksoni47/suprazo-website.git
 cd suprazo-website
 ```
 
 ### 2. Install Dependencies
+
 ```sh
 pnpm install
 # or
@@ -53,6 +55,7 @@ npm install
 ```
 
 ### 3. Run the Development Server
+
 ```sh
 pnpm dev
 # or
