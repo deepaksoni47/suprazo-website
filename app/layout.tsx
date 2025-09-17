@@ -1,24 +1,24 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, Inter } from "next/font/google"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
-import { Suspense } from "react"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import type React from "react";
+import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
+import { Suspense } from "react";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta-sans",
   display: "swap",
-})
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "SuPrazo Technologies - Innovative IT Solutions",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "software development",
     "technology consulting",
   ].join(", "),
-  authors: [{ name: "SuPrazo Technologies", url: "https://suprazo.com" }],
+  authors: [{ name: "SuPrazo Technologies", url: "https://suprazotech.in/" }],
   creator: "SuPrazo Technologies",
   publisher: "SuPrazo Technologies",
   robots: {
@@ -58,11 +58,11 @@ export const metadata: Metadata = {
       "Driving Digital Excellence with Smart IT Solutions. Expert development services and cutting-edge AI products.",
     type: "website",
     locale: "en_US",
-    url: "https://suprazo.com",
+    url: "https://suprazotech.in/",
     siteName: "SuPrazo Technologies",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://suprazotech.in/assets/LOGO_light-DTglrqWy.png",
         width: 1200,
         height: 630,
         alt: "SuPrazo Technologies - Innovative IT Solutions",
@@ -73,26 +73,41 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SuPrazo Technologies - Innovative IT Solutions",
     description: "Driving Digital Excellence with Smart IT Solutions",
-    images: ["/og-image.jpg"],
+    images: ["https://suprazotech.in/assets/LOGO_light-DTglrqWy.png"],
   },
   verification: {
     google: "your-google-verification-code",
   },
   alternates: {
-    canonical: "https://suprazo.com",
+    canonical: "https://suprazotech.in/",
   },
-}
+  icons: {
+    icon: "/favicon.ico", // classic favicon
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // iOS/Apple devices
+    other: [
+      {
+        rel: "icon",
+        url: "/logo.png", // your PNG logo if you prefer
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <meta name="theme-color" content="#0B64D4" />
         <meta name="msapplication-TileColor" content="#0B64D4" />
@@ -103,9 +118,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "SuPrazo Technologies",
-              description: "Innovative IT Solutions - Driving Digital Excellence with Smart IT Solutions",
-              url: "https://suprazo.com",
-              logo: "https://suprazo.com/logo.png",
+              description:
+                "Innovative IT Solutions - Driving Digital Excellence with Smart IT Solutions",
+              url: "https://suprazotech.in/",
+              logo: "https://suprazotech.in/assets/LOGO_light-DTglrqWy.png",
               foundingDate: "2019",
               address: {
                 "@type": "PostalAddress",
@@ -113,11 +129,14 @@ export default function RootLayout({
               },
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+91-XXXXXXXXXX",
+                telephone: "+91 9665658240",
                 contactType: "customer service",
-                email: "info@suprazo.com",
+                email: "info@suprazotech.in",
               },
-              sameAs: ["https://linkedin.com/company/suprazo-technologies", "https://twitter.com/suprazotech"],
+              sameAs: [
+                "https://www.linkedin.com/company/suprazo-technologies",
+                "https://twitter.com/suprazo-technologies",
+              ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "IT Services",
@@ -143,7 +162,8 @@ export default function RootLayout({
                     itemOffered: {
                       "@type": "Service",
                       name: "AI/ML Solutions",
-                      description: "Artificial Intelligence and Machine Learning solutions",
+                      description:
+                        "Artificial Intelligence and Machine Learning solutions",
                     },
                   },
                 ],
@@ -152,7 +172,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${plusJakartaSans.variable} ${inter.variable} ${GeistMono.variable} antialiased`}>
+      <body
+        className={`${plusJakartaSans.variable} ${inter.variable} ${GeistMono.variable} antialiased`}
+      >
         <Navigation />
         <main>
           <Suspense fallback={null}>{children}</Suspense>
@@ -161,5 +183,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

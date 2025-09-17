@@ -95,6 +95,64 @@ export function HeroSection() {
           }
         }
 
+        @keyframes scrollBounce {
+          0%,
+          20%,
+          53%,
+          80%,
+          100% {
+            transform: translateY(0) scale(1);
+          }
+          40%,
+          43% {
+            transform: translateY(-8px) scale(1.05);
+          }
+          70% {
+            transform: translateY(-4px) scale(1.02);
+          }
+        }
+
+        @keyframes scrollDot {
+          0% {
+            transform: translateY(0);
+            opacity: 0.4;
+          }
+          50% {
+            transform: translateY(12px);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(24px);
+            opacity: 0;
+          }
+        }
+
+        @keyframes scrollGlow {
+          0%,
+          100% {
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3),
+              0 0 20px rgba(59, 130, 246, 0.2),
+              inset 0 0 10px rgba(59, 130, 246, 0.1);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.4),
+              0 0 30px rgba(59, 130, 246, 0.3),
+              inset 0 0 15px rgba(147, 51, 234, 0.2);
+          }
+        }
+
+        @keyframes scrollPulse {
+          0%,
+          100% {
+            opacity: 0.6;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.1);
+          }
+        }
+
         .animate-slide-up-1 {
           animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
@@ -142,6 +200,22 @@ export function HeroSection() {
 
         .animate-glow {
           animation: glow 3s ease-in-out infinite;
+        }
+
+        .animate-scroll-bounce {
+          animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .animate-scroll-dot {
+          animation: scrollDot 2s ease-in-out infinite;
+        }
+
+        .animate-scroll-glow {
+          animation: scrollGlow 3s ease-in-out infinite;
+        }
+
+        .animate-scroll-pulse {
+          animation: scrollPulse 2s ease-in-out infinite;
         }
 
         .loaded .animate-slide-up-1,
@@ -278,10 +352,44 @@ export function HeroSection() {
             </Button>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="animate-slide-up-5 absolute bottom--0.1 left-1/2 transform -translate-x-1/2 z-10">
-            <div className="w-6 h-10 border-2 border-foreground/60 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-foreground/60 rounded-full mt-2 animate-bounce" />
+          {/* Enhanced Scroll Indicator */}
+          <div className="animate-slide-up-5 absolute bottom-0 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="flex flex-col items-center space-y-1">
+              {/* Scroll text */}
+              <span className="text-xs text-foreground/70 font-medium tracking-wider uppercase animate-scroll-pulse">
+                Scroll
+              </span>
+
+              {/* Mouse container */}
+              <div className="relative animate-scroll-bounce">
+                <div className="w-7 h-12 border-2 border-foreground/40 rounded-full flex justify-center overflow-hidden backdrop-blur-sm animate-scroll-glow relative">
+                  {/* Scrolling dot */}
+                  <div className="w-1.5 h-1.5 bg-gradient-to-b from-primary to-secondary rounded-full mt-2 animate-scroll-dot" />
+
+                  {/* Static indicator dot for reference */}
+                  <div className="absolute top-2 w-1 h-1 bg-foreground/30 rounded-full" />
+                </div>
+
+                {/* Surrounding glow effect */}
+                <div className="absolute inset-0 w-7 h-12 rounded-full animate-scroll-glow opacity-50 pointer-events-none" />
+              </div>
+
+              {/* Down arrow */}
+              <div className="animate-scroll-pulse">
+                <svg
+                  className="w-4 h-4 text-foreground/50"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>

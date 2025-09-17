@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, MessageCircle, Calendar } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight, MessageCircle, Calendar } from "lucide-react";
 
 export function AboutCTA() {
   return (
@@ -30,8 +30,8 @@ export function AboutCTA() {
                   </span>
                 </h2>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Let's discuss how we can help transform your business with innovative technology solutions tailored to
-                  your needs.
+                  Let's discuss how we can help transform your business with
+                  innovative technology solutions tailored to your needs.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -54,7 +54,9 @@ export function AboutCTA() {
 
                 {/* Additional Contact Options */}
                 <div className="mt-8 pt-8 border-t border-white/10">
-                  <p className="text-muted-foreground mb-4">Prefer a different approach?</p>
+                  <p className="text-muted-foreground mb-4">
+                    Prefer a different approach?
+                  </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
                     <a
                       href="mailto:info@suprazotech.in"
@@ -62,11 +64,18 @@ export function AboutCTA() {
                     >
                       info@suprazotech.in
                     </a>
-                    <span className="hidden sm:block text-muted-foreground">•</span>
-                    <a href="tel:+91XXXXXXXXXX" className="text-secondary hover:text-secondary/80 transition-colors">
-                      +91 XXX XXX XXXX
+                    <span className="hidden sm:block text-muted-foreground">
+                      •
+                    </span>
+                    <a
+                      href="tel:+91XXXXXXXXXX"
+                      className="text-secondary hover:text-secondary/80 transition-colors"
+                    >
+                      +91 96656 58240
                     </a>
-                    <span className="hidden sm:block text-muted-foreground">•</span>
+                    <span className="hidden sm:block text-muted-foreground">
+                      •
+                    </span>
                     <button className="text-secondary hover:text-secondary/80 transition-colors flex items-center">
                       <Calendar className="w-4 h-4 mr-1" />
                       Schedule a Call
@@ -79,5 +88,5 @@ export function AboutCTA() {
         </Card>
       </div>
     </section>
-  )
+  );
 }

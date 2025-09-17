@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Linkedin, Github, Twitter } from "lucide-react"
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Linkedin, Github, Twitter } from "lucide-react";
 
 const teamMembers = [
   {
@@ -78,24 +78,37 @@ const teamMembers = [
     role: "Project Manager",
     department: "Operations",
     bio: "Experienced project manager ensuring smooth delivery of complex projects while maintaining quality and client satisfaction.",
-    skills: ["Project Management", "Agile", "Client Relations", "Quality Assurance"],
+    skills: [
+      "Project Management",
+      "Agile",
+      "Client Relations",
+      "Quality Assurance",
+    ],
     image: "/team-member-project-manager-professional-headshot.jpg",
     social: {
       linkedin: "#",
     },
   },
-]
+];
 
-const departments = ["All", "Leadership", "Engineering", "Design", "Operations"]
+const departments = [
+  "All",
+  "Leadership",
+  "Engineering",
+  "Design",
+  "Operations",
+];
 
 export function TeamSection() {
-  const [selectedDepartment, setSelectedDepartment] = useState("All")
-  const [hoveredMember, setHoveredMember] = useState<number | null>(null)
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  const [hoveredMember, setHoveredMember] = useState<number | null>(null);
 
   const filteredMembers =
     selectedDepartment === "All"
       ? teamMembers
-      : teamMembers.filter((member) => member.department === selectedDepartment)
+      : teamMembers.filter(
+          (member) => member.department === selectedDepartment
+        );
 
   return (
     <section className="py-20 relative">
@@ -104,11 +117,13 @@ export function TeamSection() {
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Meet Our{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Team</span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Team
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Our diverse team of experts brings together years of experience and passion for creating exceptional
-            technology solutions.
+            Our diverse team of experts brings together years of experience and
+            passion for creating exceptional technology solutions.
           </p>
 
           {/* Department Filter */}
@@ -134,7 +149,7 @@ export function TeamSection() {
           {filteredMembers.map((member) => (
             <Card
               key={member.id}
-              className="glass-card border-0 overflow-hidden transition-all duration-300 hover:scale-105 group cursor-pointer"
+              className="glass-card border-0 overflow-hidden transition-all duration-300 group cursor-pointer"
               onMouseEnter={() => setHoveredMember(member.id)}
               onMouseLeave={() => setHoveredMember(null)}
             >
@@ -142,7 +157,10 @@ export function TeamSection() {
                 {/* Member Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
-                    src={member.image || "/placeholder.svg?height=256&width=256&query=professional headshot"}
+                    src={
+                      member.image ||
+                      "/placeholder.svg?height=256&width=256&query=professional headshot"
+                    }
                     alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -151,7 +169,9 @@ export function TeamSection() {
                   {/* Social Links - Show on hover */}
                   <div
                     className={`absolute top-4 right-4 flex space-x-2 transition-all duration-300 ${
-                      hoveredMember === member.id ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+                      hoveredMember === member.id
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 -translate-y-2"
                     }`}
                   >
                     {member.social.linkedin && (
@@ -182,7 +202,10 @@ export function TeamSection() {
 
                   {/* Department Badge */}
                   <div className="absolute bottom-4 left-4">
-                    <Badge variant="secondary" className="bg-white/10 text-white border-white/20">
+                    <Badge
+                      variant="secondary"
+                      className="bg-white/10 text-white border-white/20"
+                    >
                       {member.department}
                     </Badge>
                   </div>
@@ -190,14 +213,24 @@ export function TeamSection() {
 
                 {/* Member Info */}
                 <div className="p-6">
-                  <h3 className="font-heading font-bold text-xl text-foreground mb-1">{member.name}</h3>
-                  <p className="text-secondary font-medium mb-3">{member.role}</p>
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{member.bio}</p>
+                  <h3 className="font-heading font-bold text-xl text-foreground mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-secondary font-medium mb-3">
+                    {member.role}
+                  </p>
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                    {member.bio}
+                  </p>
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-1">
                     {member.skills.map((skill, index) => (
-                      <Badge key={index} variant="outline" className="text-xs bg-white/5 border-white/10">
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="text-xs bg-white/5 border-white/10"
+                      >
                         {skill}
                       </Badge>
                     ))}
@@ -212,13 +245,16 @@ export function TeamSection() {
         <div className="mt-16 text-center">
           <Card className="glass-card border-0 inline-block">
             <CardContent className="p-8">
-              <h3 className="font-heading font-bold text-2xl text-foreground mb-3">Want to Join Our Team?</h3>
+              <h3 className="font-heading font-bold text-2xl text-foreground mb-3">
+                Want to Join Our Team?
+              </h3>
               <p className="text-muted-foreground mb-4">
-                We're always looking for talented individuals who share our passion for innovation.
+                We're always looking for talented individuals who share our
+                passion for innovation.
               </p>
               <a
                 href="/careers"
-                className="inline-flex items-center px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-medium transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-medium transition-all duration-300"
               >
                 View Open Positions
               </a>
@@ -227,5 +263,5 @@ export function TeamSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

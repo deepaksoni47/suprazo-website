@@ -1,78 +1,184 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Eye, Hand, Sparkles } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Eye, Hand, Sparkles, Zap, Code, Smartphone } from "lucide-react";
 
 export function ProductsHero() {
-  const [activeProduct, setActiveProduct] = useState(0)
-
-  const products = [
-    {
-      icon: Eye,
-      title: "CampusEye.ai",
-      subtitle: "AI-Powered Campus Management",
-      color: "from-blue-500 to-purple-500",
-    },
-    {
-      icon: Hand,
-      title: "Sign Language App",
-      subtitle: "Breaking Communication Barriers",
-      color: "from-green-500 to-teal-500",
-    },
-  ]
+  const [activeProduct, setActiveProduct] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animationStep, setAnimationStep] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveProduct((prev) => (prev + 1) % products.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [products.length])
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+
+          // Staggered animation sequence
+          const timeouts = [
+            setTimeout(() => setAnimationStep(1), 200),
+            setTimeout(() => setAnimationStep(2), 600),
+            setTimeout(() => setAnimationStep(3), 1000),
+            setTimeout(() => setAnimationStep(4), 1400),
+          ];
+
+          return () => timeouts.forEach(clearTimeout);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
+    >
+      <style jsx>{`
+        @keyframes float {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+          }
+          25% {
+            transform: translate3d(-10px, -10px, 0) rotate(1deg);
+          }
+          50% {
+            transform: translate3d(0, -20px, 0) rotate(0deg);
+          }
+          75% {
+            transform: translate3d(10px, -10px, 0) rotate(-1deg);
+          }
+        }
+        @keyframes glow {
+          0%,
+          100% {
+            box-shadow: 0 0 20px rgba(var(--primary), 0.3);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(var(--primary), 0.6),
+              0 0 60px rgba(var(--secondary), 0.3);
+          }
+        }
+        @keyframes slide-in-up {
+          from {
+            transform: translate3d(0, 30px, 0);
+            opacity: 0;
+          }
+          to {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+          }
+        }
+        @keyframes fade-in-scale {
+          from {
+            transform: scale(0.9);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        @keyframes pulse-glow {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 1;
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-glow {
+          animation: glow 3s ease-in-out infinite;
+        }
+        .animate-slide-in-up {
+          animation: slide-in-up 0.8s ease-out forwards;
+        }
+        .animate-fade-in-scale {
+          animation: fade-in-scale 0.8s ease-out forwards;
+        }
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+      `}</style>
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/5">
-        {/* Product-themed particles */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/50 to-secondary/10">
+        {/* Geometric Background Elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse-glow" />
+        <div
+          className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-3xl animate-pulse-glow"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-xl animate-pulse-glow"
+          style={{ animationDelay: "2s" }}
+        />
+
+        {/* Optimized Product-themed particles */}
         <div className="absolute inset-0">
-          {[...Array(30)].map((_, i) => (
+          {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className={`absolute w-2 h-2 rounded-full animate-float ${
-                i % 2 === 0 ? "bg-primary/20" : "bg-secondary/20"
+              className={`absolute w-1.5 h-1.5 md:w-2 md:h-2 rounded-full animate-float ${
+                i % 3 === 0
+                  ? "bg-primary/30"
+                  : i % 3 === 1
+                  ? "bg-secondary/30"
+                  : "bg-accent/20"
               }`}
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${3 + Math.random() * 3}s`,
+                animationDuration: `${4 + Math.random() * 4}s`,
               }}
             />
           ))}
         </div>
 
         {/* Floating product icons */}
-        <div className="absolute inset-0">
-          {products.map((product, index) => {
-            const IconComponent = product.icon
-            return (
-              <div
-                key={index}
-                className={`absolute transition-all duration-1000 ${
-                  activeProduct === index ? "opacity-15 scale-125" : "opacity-5 scale-100"
-                }`}
-                style={{
-                  left: `${30 + index * 40}%`,
-                  top: `${25 + index * 20}%`,
-                }}
-              >
-                <div
-                  className={`w-32 h-32 bg-gradient-to-r ${product.color} rounded-full flex items-center justify-center animate-float blur-sm`}
-                >
-                  <IconComponent className="w-16 h-16 text-white" />
-                </div>
-              </div>
-            )
-          })}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            animationStep >= 1 ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div
+            className="absolute top-1/4 left-1/6 animate-float opacity-20"
+            style={{ animationDelay: "0.5s" }}
+          >
+            <Smartphone className="w-8 h-8 md:w-12 md:h-12 text-primary" />
+          </div>
+          <div
+            className="absolute top-3/4 right-1/6 animate-float opacity-20"
+            style={{ animationDelay: "1.5s" }}
+          >
+            <Code className="w-8 h-8 md:w-12 md:h-12 text-secondary" />
+          </div>
+          <div
+            className="absolute top-1/2 right-1/4 animate-float opacity-20"
+            style={{ animationDelay: "2.5s" }}
+          >
+            <Zap className="w-6 h-6 md:w-10 md:h-10 text-accent" />
+          </div>
+          <div
+            className="absolute bottom-1/4 left-1/3 animate-float opacity-20"
+            style={{ animationDelay: "3s" }}
+          >
+            <Eye className="w-7 h-7 md:w-11 md:h-11 text-primary" />
+          </div>
         </div>
       </div>
 
@@ -80,50 +186,91 @@ export function ProductsHero() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center space-x-2 glass-card px-4 py-2 rounded-full mb-8 animate-glow">
-            <Sparkles className="w-4 h-4 text-secondary" />
-            <span className="text-sm font-medium text-foreground">Innovation in Action</span>
+          <div
+            className={`inline-flex items-center space-x-2 glass-card px-6 py-3 rounded-full mb-8 backdrop-blur-sm border border-white/10 transition-all duration-1000 ${
+              animationStep >= 1
+                ? "opacity-100 animate-slide-in-up animate-glow"
+                : "opacity-0"
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-secondary animate-pulse-glow" />
+            <span className="text-sm md:text-base font-medium text-foreground">
+              Innovation in Action
+            </span>
           </div>
 
-          <h1 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-tight">
-            <span className="block">Our</span>
-            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          {/* Main Title */}
+          <h1
+            className={`font-heading font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-6 leading-tight transition-all duration-1000 ${
+              animationStep >= 2
+                ? "opacity-100 animate-fade-in-scale"
+                : "opacity-0"
+            }`}
+          >
+            <span className="block mb-2">Our</span>
+            <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent relative">
               Products
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 blur-lg animate-pulse-glow -z-10" />
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            Discover our flagship products that showcase our expertise in AI, mobile development, and innovative
-            technology solutions.
+          {/* Description */}
+          <p
+            className={`text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
+              animationStep >= 3
+                ? "opacity-100 animate-slide-in-up"
+                : "opacity-0"
+            }`}
+          >
+            Discover our flagship products that showcase our expertise in AI,
+            mobile development, and innovative technology solutions.
           </p>
 
-          {/* Product Showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {products.map((product, index) => {
-              const IconComponent = product.icon
-              return (
-                <div
-                  key={index}
-                  className={`glass-card p-8 rounded-2xl cursor-pointer transition-all duration-500 ${
-                    activeProduct === index
-                      ? "scale-105 animate-glow border-primary/30"
-                      : "hover:scale-102 border-transparent"
-                  }`}
-                  onClick={() => setActiveProduct(index)}
-                >
-                  <div
-                    className={`w-16 h-16 bg-gradient-to-r ${product.color} rounded-xl flex items-center justify-center mb-4 mx-auto`}
-                  >
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="font-heading font-bold text-2xl text-foreground mb-2">{product.title}</h3>
-                  <p className="text-muted-foreground">{product.subtitle}</p>
-                </div>
-              )
-            })}
+          {/* Call-to-action buttons */}
+          <div
+            className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 ${
+              animationStep >= 4
+                ? "opacity-100 animate-fade-in-scale"
+                : "opacity-0"
+            }`}
+          >
+            <button className="group glass-card px-8 py-4 rounded-full border border-primary/30 hover:border-primary/60 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20">
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-semibold">
+                Explore Products
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+            </button>
+
+            <button className="group glass-card px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105">
+              <span className="text-foreground font-semibold group-hover:text-primary transition-colors duration-300">
+                View Demo
+              </span>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Decorative Elements */}
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
+          animationStep >= 2 ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {/* Corner decorations */}
+        <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-primary/20 animate-pulse-glow" />
+        <div
+          className="absolute top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-secondary/20 animate-pulse-glow"
+          style={{ animationDelay: "0.5s" }}
+        />
+        <div
+          className="absolute bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-secondary/20 animate-pulse-glow"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-primary/20 animate-pulse-glow"
+          style={{ animationDelay: "1.5s" }}
+        />
+      </div>
     </section>
-  )
+  );
 }

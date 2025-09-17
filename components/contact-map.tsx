@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Navigation } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { MapPin, Navigation } from "lucide-react";
 
 export function ContactMap() {
   return (
@@ -10,10 +10,13 @@ export function ContactMap() {
         <div className="text-center mb-12">
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
             Our{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Location</span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Office
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            While we're a remote-first company, we're based in India and serve clients worldwide.
+            Visit us at our office in Nagpur or connect with us virtually from
+            anywhere in the world.
           </p>
         </div>
 
@@ -27,8 +30,12 @@ export function ContactMap() {
                     <div className="w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mb-4 mx-auto animate-glow">
                       <MapPin className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="font-heading font-bold text-2xl text-foreground mb-2">India</h3>
-                    <p className="text-muted-foreground">Remote-first Technology Company</p>
+                    <h3 className="font-heading font-bold text-2xl text-foreground mb-2">
+                      Nagpur, Maharashtra
+                    </h3>
+                    <p className="text-muted-foreground">
+                      SuPrazo Technologies Office
+                    </p>
                   </div>
                 </div>
 
@@ -50,29 +57,37 @@ export function ContactMap() {
 
               {/* Location Info */}
               <div className="p-8 lg:p-12">
-                <h3 className="font-heading font-bold text-2xl text-foreground mb-6">Why Remote-First?</h3>
+                <h3 className="font-heading font-bold text-2xl text-foreground mb-6">
+                  Our Office
+                </h3>
 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Navigation className="w-5 h-5 text-white" />
+                      <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-heading font-semibold text-foreground mb-1">Global Reach</h4>
+                      <h4 className="font-heading font-semibold text-foreground mb-1">
+                        Visit Us
+                      </h4>
                       <p className="text-muted-foreground text-sm">
-                        We work with clients across different time zones and continents.
+                        Drop by our office for face-to-face consultations and
+                        project discussions.
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-white" />
+                      <Navigation className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-heading font-semibold text-foreground mb-1">Flexible Collaboration</h4>
+                      <h4 className="font-heading font-semibold text-foreground mb-1">
+                        Easy Access
+                      </h4>
                       <p className="text-muted-foreground text-sm">
-                        Our distributed team brings diverse perspectives and expertise.
+                        Conveniently located in Nagpur with good connectivity
+                        and parking facilities.
                       </p>
                     </div>
                   </div>
@@ -82,9 +97,12 @@ export function ContactMap() {
                       <Navigation className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-heading font-semibold text-foreground mb-1">Always Available</h4>
+                      <h4 className="font-heading font-semibold text-foreground mb-1">
+                        Local & Global
+                      </h4>
                       <p className="text-muted-foreground text-sm">
-                        24/7 support and communication across all time zones.
+                        Serving local businesses in Maharashtra and clients
+                        worldwide.
                       </p>
                     </div>
                   </div>
@@ -92,11 +110,13 @@ export function ContactMap() {
 
                 <div className="mt-8 p-4 glass rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong className="text-foreground">Headquarters:</strong> India
+                    <strong className="text-foreground">Address:</strong>{" "}
+                    Mehandibagh Colony, Nagpur, Maharashtra, India 440017
                     <br />
-                    <strong className="text-foreground">Service Areas:</strong> Global
+                    <strong className="text-foreground">City:</strong> Nagpur
                     <br />
-                    <strong className="text-foreground">Time Zones:</strong> All supported
+                    <strong className="text-foreground">State:</strong>{" "}
+                    Maharashtra, India
                   </p>
                 </div>
               </div>
@@ -105,5 +125,5 @@ export function ContactMap() {
         </Card>
       </div>
     </section>
-  )
+  );
 }

@@ -1,46 +1,52 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Home, DollarSign, BookOpen, Heart, Globe, Zap } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Home, DollarSign, BookOpen, Heart, Globe, Zap } from "lucide-react";
 
 const benefits = [
   {
     icon: Home,
     title: "Remote-First Culture",
-    description: "Work from anywhere with flexible hours and a healthy work-life balance.",
+    description:
+      "Work from anywhere with flexible hours and a healthy work-life balance.",
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: DollarSign,
     title: "Competitive Compensation",
-    description: "Market-competitive salaries with performance bonuses and equity options.",
+    description:
+      "Market-competitive salaries with performance bonuses and equity options.",
     color: "from-green-500 to-emerald-500",
   },
   {
     icon: BookOpen,
     title: "Learning & Development",
-    description: "Annual learning budget, conference attendance, and skill development programs.",
+    description:
+      "Annual learning budget, conference attendance, and skill development programs.",
     color: "from-purple-500 to-pink-500",
   },
   {
     icon: Heart,
     title: "Health & Wellness",
-    description: "Comprehensive health insurance and wellness programs for you and your family.",
+    description:
+      "Comprehensive health insurance and wellness programs for you and your family.",
     color: "from-red-500 to-orange-500",
   },
   {
     icon: Globe,
     title: "Global Opportunities",
-    description: "Work with international clients and collaborate with teams across the world.",
+    description:
+      "Work with international clients and collaborate with teams across the world.",
     color: "from-indigo-500 to-purple-500",
   },
   {
     icon: Zap,
     title: "Cutting-Edge Tech",
-    description: "Work with the latest technologies and tools in a fast-paced environment.",
+    description:
+      "Work with the latest technologies and tools in a fast-paced environment.",
     color: "from-teal-500 to-green-500",
   },
-]
+];
 
 export function CompanyBenefits() {
   return (
@@ -50,17 +56,20 @@ export function CompanyBenefits() {
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Why Work{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">With Us</span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              With Us
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We believe in taking care of our team members and providing an environment where everyone can thrive.
+            We believe in taking care of our team members and providing an
+            environment where everyone can thrive.
           </p>
         </div>
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit, index) => {
-            const IconComponent = benefit.icon
+            const IconComponent = benefit.icon;
             return (
               <Card
                 key={index}
@@ -76,39 +85,18 @@ export function CompanyBenefits() {
                   </div>
 
                   {/* Content */}
-                  <h3 className="font-heading font-bold text-xl text-foreground mb-3">{benefit.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
+                  <h3 className="font-heading font-bold text-xl text-foreground mb-3">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
-
-        {/* Additional Perks */}
-        <Card className="glass-card border-0 mt-16">
-          <CardContent className="p-8 md:p-12">
-            <h3 className="font-heading font-bold text-2xl text-foreground text-center mb-8">Additional Perks</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-2xl font-heading font-bold text-primary mb-2">₹50,000</div>
-                <div className="text-sm text-muted-foreground">Annual Learning Budget</div>
-              </div>
-              <div>
-                <div className="text-2xl font-heading font-bold text-secondary mb-2">Unlimited</div>
-                <div className="text-sm text-muted-foreground">Paid Time Off</div>
-              </div>
-              <div>
-                <div className="text-2xl font-heading font-bold text-primary mb-2">Latest</div>
-                <div className="text-sm text-muted-foreground">MacBook Pro</div>
-              </div>
-              <div>
-                <div className="text-2xl font-heading font-bold text-secondary mb-2">Monthly</div>
-                <div className="text-sm text-muted-foreground">Team Events</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </section>
-  )
+  );
 }
