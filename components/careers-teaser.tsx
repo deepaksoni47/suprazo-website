@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Rocket, Heart, ArrowRight } from "lucide-react";
@@ -8,6 +8,13 @@ export function CareersTeaser() {
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
+
+  const cleanupTimeouts = useCallback(() => {
+    timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
+    timeoutRefs.current = [];
+  }, []);
+
   useEffect(() => {
     const observerOptions = {
       threshold: 0.3,
@@ -16,10 +23,13 @@ export function CareersTeaser() {
     const sectionObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
-        setTimeout(() => setAnimationStep(1), 200);
-        setTimeout(() => setAnimationStep(2), 600);
-        setTimeout(() => setAnimationStep(3), 1000);
-        setTimeout(() => setAnimationStep(4), 1400);
+        cleanupTimeouts();
+        timeoutRefs.current = [
+          setTimeout(() => setAnimationStep(1), 150),
+          setTimeout(() => setAnimationStep(2), 400),
+          setTimeout(() => setAnimationStep(3), 650),
+          setTimeout(() => setAnimationStep(4), 900),
+        ];
       }
     }, observerOptions);
     if (sectionRef.current) {
@@ -27,151 +37,179 @@ export function CareersTeaser() {
     }
     return () => {
       sectionObserver.disconnect();
+      cleanupTimeouts();
     };
-  }, []);
+  }, [cleanupTimeouts]);
   return (
     <section ref={sectionRef} className="py-20 relative">
       <style jsx>{`
         @keyframes slideUpFade {
           0% {
             opacity: 0;
-            transform: translateY(60px);
+            transform: translate3d(0, 40px, 0);
           }
           100% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
           }
         }
         @keyframes bounceIn {
           0% {
             opacity: 0;
-            transform: scale(0.3) translateY(-100px);
+            transform: translate3d(0, -50px, 0) scale(0.5);
           }
-          50% {
+          60% {
             opacity: 1;
-            transform: scale(1.1) translateY(-10px);
-          }
-          70% {
-            transform: scale(0.9) translateY(5px);
+            transform: translate3d(0, -5px, 0) scale(1.05);
           }
           100% {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translate3d(0, 0, 0) scale(1);
           }
         }
         @keyframes slideInLeft {
           0% {
             opacity: 0;
-            transform: translateX(-80px) scale(0.8);
+            transform: translate3d(-40px, 0, 0);
           }
           100% {
             opacity: 1;
-            transform: translateX(0) scale(1);
+            transform: translate3d(0, 0, 0);
           }
         }
         @keyframes slideInRight {
           0% {
             opacity: 0;
-            transform: translateX(80px) scale(0.8);
+            transform: translate3d(40px, 0, 0);
           }
           100% {
             opacity: 1;
-            transform: translateX(0) scale(1);
+            transform: translate3d(0, 0, 0);
           }
         }
         @keyframes fadeInScale {
           0% {
             opacity: 0;
-            transform: scale(0.7) rotate(-5deg);
-          }
-          50% {
-            transform: scale(1.05) rotate(2deg);
+            transform: scale(0.8);
           }
           100% {
             opacity: 1;
-            transform: scale(1) rotate(0deg);
+            transform: scale(1);
           }
         }
         @keyframes shimmer {
           0% {
-            background-position: -200% 0;
+            transform: translate3d(-100%, 0, 0);
           }
           100% {
-            background-position: 200% 0;
+            transform: translate3d(100%, 0, 0);
           }
         }
         @keyframes pulse {
           0%,
           100% {
             transform: scale(1);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
           }
           50% {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
+            transform: scale(1.02);
           }
         }
         @keyframes countUp {
           0% {
             opacity: 0;
-            transform: translateY(20px) scale(0.8);
+            transform: translate3d(0, 20px, 0);
           }
           100% {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translate3d(0, 0, 0);
           }
         }
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
+        @keyframes colorShiftOnce {
+          0% {
+            color: #0b64d4;
+          }
+          25% {
+            color: #00c2a8;
           }
           50% {
-            transform: translateY(-15px);
+            color: #9333ea;
+          }
+          75% {
+            color: #00c2a8;
+          }
+          100% {
+            color: #0b64d4;
+          }
+        }
+        @keyframes iconGlow {
+          0% {
+            box-shadow: 0 0 10px rgba(11, 100, 212, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(0, 194, 168, 0.5);
+          }
+          100% {
+            box-shadow: 0 0 10px rgba(11, 100, 212, 0.3);
           }
         }
         .animate-slide-up {
-          animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
+          animation: slideUpFade 0.6s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-bounce-in {
-          animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-            forwards;
+          animation: bounceIn 0.6s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-slide-left {
-          animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
+          animation: slideInLeft 0.5s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-slide-right {
-          animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
+          animation: slideInRight 0.5s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-fade-scale {
-          animation: fadeInScale 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            forwards;
+          animation: fadeInScale 0.5s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-count-up {
-          animation: countUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+          animation: countUp 0.4s ease-out forwards;
+          will-change: transform, opacity;
         }
         .animate-shimmer {
+          position: relative;
+          overflow: hidden;
+        }
+        .animate-shimmer::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.1),
             transparent
           );
-          background-size: 200% 100%;
-          animation: shimmer 2s infinite;
+          animation: shimmer 2s ease-in-out infinite;
+          will-change: transform;
         }
         .animate-pulse-glow {
-          animation: pulse 3s ease-in-out infinite;
+          animation: pulse 2s ease-in-out infinite;
+          will-change: transform;
         }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
+        .animate-color-shift-once {
+          animation: colorShiftOnce 3s ease-in-out forwards;
+          will-change: color;
+        }
+        .animate-icon-glow {
+          animation: iconGlow 2s ease-in-out forwards;
         }
         .scroll-hidden {
           opacity: 0;
-          transform: translateY(60px);
+          transform: translate3d(0, 40px, 0);
         }
       `}</style>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,7 +222,7 @@ export function CareersTeaser() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10">
                 <div
-                  className={`absolute inset-0 transition-opacity duration-1000 delay-300 ${
+                  className={`absolute inset-0 transition-opacity duration-700 ${
                     isVisible ? "opacity-20" : "opacity-0"
                   }`}
                   style={{
@@ -194,100 +232,71 @@ export function CareersTeaser() {
                     `,
                   }}
                 />
+                <div className="absolute top-10 left-10 w-2 h-2 bg-primary/30 rounded-full animate-pulse" />
                 <div
-                  className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${
-                    animationStep >= 1 ? "opacity-30 animate-shimmer" : ""
-                  }`}
+                  className="absolute bottom-10 right-10 w-1.5 h-1.5 bg-secondary/30 rounded-full animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                />
+                <div
+                  className="absolute top-1/2 right-20 w-1 h-1 bg-primary/20 rounded-full animate-pulse"
+                  style={{ animationDelay: "2s" }}
                 />
               </div>
               <div className="relative z-10 p-8 md:p-12 text-center">
                 <div className="flex justify-center space-x-4 mb-6">
                   <div
-                    className={`w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-300 ${
+                    className={`w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center transition-all duration-500 ${
                       animationStep >= 1
-                        ? "animate-bounce-in animate-float"
+                        ? "animate-bounce-in animate-icon-glow"
                         : "scroll-hidden"
                     }`}
-                    style={
-                      {
-                        animationDelay: animationStep >= 1 ? "0s" : "0s",
-                        "--float-delay": "0s",
-                      } as any
-                    }
+                    style={{ animationDelay: "0ms" }}
                   >
-                    <Users className="w-6 h-6 text-white relative z-10" />
-                    <div
-                      className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${
-                        animationStep >= 2 ? "opacity-100 animate-shimmer" : ""
-                      }`}
-                    />
+                    <Users className="w-6 h-6 text-white" />
                   </div>
                   <div
-                    className={`w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-300 ${
+                    className={`w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center transition-all duration-500 ${
                       animationStep >= 1
-                        ? "animate-bounce-in animate-float"
+                        ? "animate-bounce-in animate-icon-glow"
                         : "scroll-hidden"
                     }`}
-                    style={
-                      {
-                        animationDelay: animationStep >= 1 ? "200ms" : "0s",
-                        "--float-delay": "2s",
-                      } as any
-                    }
+                    style={{ animationDelay: "100ms" }}
                   >
-                    <Rocket className="w-6 h-6 text-white relative z-10" />
-                    <div
-                      className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${
-                        animationStep >= 2 ? "opacity-100 animate-shimmer" : ""
-                      }`}
-                    />
+                    <Rocket className="w-6 h-6 text-white" />
                   </div>
                   <div
-                    className={`w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-300 ${
+                    className={`w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center transition-all duration-500 ${
                       animationStep >= 1
-                        ? "animate-bounce-in animate-float"
+                        ? "animate-bounce-in animate-icon-glow"
                         : "scroll-hidden"
                     }`}
-                    style={
-                      {
-                        animationDelay: animationStep >= 1 ? "400ms" : "0s",
-                        "--float-delay": "4s",
-                      } as any
-                    }
+                    style={{ animationDelay: "200ms" }}
                   >
-                    <Heart className="w-6 h-6 text-white relative z-10" />
-                    <div
-                      className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${
-                        animationStep >= 2 ? "opacity-100 animate-shimmer" : ""
-                      }`}
-                    />
+                    <Heart className="w-6 h-6 text-white" />
                   </div>
                 </div>
                 <h2
-                  className={`font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 transition-all duration-800 ${
+                  className={`font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 transition-all duration-600 ${
                     animationStep >= 1 ? "animate-slide-up" : "scroll-hidden"
                   }`}
-                  style={{ animationDelay: "600ms" }}
+                  style={{ animationDelay: "300ms" }}
                 >
                   Join Our{" "}
                   <span
-                    className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent relative inline-block"
-                    style={{
-                      backgroundSize: "200% 100%",
-                      animation:
-                        animationStep >= 2
-                          ? "shimmer 3s ease-in-out infinite"
-                          : "none",
-                    }}
+                    className={`${
+                      animationStep >= 1
+                        ? "animate-color-shift-once"
+                        : "bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                    }`}
                   >
                     Team
                   </span>
                 </h2>
                 <p
-                  className={`text-xl text-muted-foreground mb-8 max-w-2xl mx-auto transition-all duration-800 ${
+                  className={`text-xl text-muted-foreground mb-8 max-w-2xl mx-auto transition-all duration-600 ${
                     animationStep >= 2 ? "animate-slide-up" : "scroll-hidden"
                   }`}
-                  style={{ animationDelay: "800ms" }}
+                  style={{ animationDelay: "400ms" }}
                 >
                   Be part of an innovative team that's shaping the future of
                   technology. We offer exciting opportunities for growth,
@@ -295,70 +304,58 @@ export function CareersTeaser() {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div
-                    className={`text-center transition-all duration-600 ${
+                    className={`text-center transition-all duration-500 hover:scale-105 cursor-pointer group ${
                       animationStep >= 3 ? "animate-count-up" : "scroll-hidden"
                     }`}
-                    style={{ animationDelay: "1000ms" }}
+                    style={{ animationDelay: "500ms" }}
                   >
-                    <div className="text-2xl font-heading font-bold text-primary mb-1 relative">
+                    <div className="text-2xl font-heading font-bold text-primary mb-1 group-hover:text-primary/80 transition-colors duration-300">
                       Remote-First
-                      <div
-                        className="absolute inset-0 bg-primary/20 rounded-lg blur-lg opacity-0 animate-pulse-glow"
-                        style={{ animationDelay: "1200ms" }}
-                      />
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                       Work from anywhere
                     </div>
                   </div>
                   <div
-                    className={`text-center transition-all duration-600 ${
+                    className={`text-center transition-all duration-500 hover:scale-105 cursor-pointer group ${
                       animationStep >= 3 ? "animate-count-up" : "scroll-hidden"
                     }`}
-                    style={{ animationDelay: "1200ms" }}
+                    style={{ animationDelay: "600ms" }}
                   >
-                    <div className="text-2xl font-heading font-bold text-secondary mb-1 relative">
+                    <div className="text-2xl font-heading font-bold text-secondary mb-1 group-hover:text-secondary/80 transition-colors duration-300">
                       Learning Budget
-                      <div
-                        className="absolute inset-0 bg-secondary/20 rounded-lg blur-lg opacity-0 animate-pulse-glow"
-                        style={{ animationDelay: "1400ms" }}
-                      />
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                       Continuous growth
                     </div>
                   </div>
                   <div
-                    className={`text-center transition-all duration-600 ${
+                    className={`text-center transition-all duration-500 hover:scale-105 cursor-pointer group ${
                       animationStep >= 3 ? "animate-count-up" : "scroll-hidden"
                     }`}
-                    style={{ animationDelay: "1400ms" }}
+                    style={{ animationDelay: "700ms" }}
                   >
-                    <div className="text-2xl font-heading font-bold text-primary mb-1 relative">
+                    <div className="text-2xl font-heading font-bold text-primary mb-1 group-hover:text-primary/80 transition-colors duration-300">
                       Open Positions
-                      <div
-                        className="absolute inset-0 bg-primary/20 rounded-lg blur-lg opacity-0 animate-pulse-glow"
-                        style={{ animationDelay: "1600ms" }}
-                      />
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                       Multiple roles available
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <div
-                    className={`transition-all duration-700 ${
+                    className={`transition-all duration-500 ${
                       animationStep >= 4
                         ? "animate-slide-left"
                         : "scroll-hidden"
                     }`}
-                    style={{ animationDelay: "1600ms" }}
+                    style={{ animationDelay: "600ms" }}
                   >
                     <Link href="/careers">
                       <Button
                         size="lg"
-                        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group transition-all duration-300 hover:scale-105 relative overflow-hidden animate-pulse-glow"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group transition-all duration-300 hover:scale-105 relative overflow-hidden"
                       >
                         <span className="relative z-10">
                           View Open Positions
@@ -369,23 +366,23 @@ export function CareersTeaser() {
                     </Link>
                   </div>
                   <div
-                    className={`transition-all duration-700 ${
+                    className={`transition-all duration-500 ${
                       animationStep >= 4
                         ? "animate-slide-right"
                         : "scroll-hidden"
                     }`}
-                    style={{ animationDelay: "1800ms" }}
+                    style={{ animationDelay: "700ms" }}
                   >
                     <Link href="/internships">
                       <Button
                         size="lg"
                         variant="outline"
-                        className="glass border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-transparent relative overflow-hidden"
+                        className="glass border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-transparent relative overflow-hidden group"
                       >
                         <span className="relative z-10">
                           Internship Program
                         </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700 ease-out" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                       </Button>
                     </Link>
                   </div>

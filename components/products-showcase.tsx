@@ -133,6 +133,23 @@ export function ProductsShowcase() {
             transform: scale(1) rotate(0deg);
           }
         }
+        @keyframes colorShift {
+          0% {
+            color: #0b64d4;
+          }
+          25% {
+            color: #00c2a8;
+          }
+          50% {
+            color: #9333ea;
+          }
+          75% {
+            color: #00c2a8;
+          }
+          100% {
+            color: #0b64d4;
+          }
+        }
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -176,6 +193,10 @@ export function ProductsShowcase() {
           animation: fadeInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
+        .animate-color-shift {
+          animation: colorShift 4s ease-in-out infinite;
+          will-change: color;
+        }
         .animate-shimmer {
           background: linear-gradient(
             90deg,
@@ -206,13 +227,11 @@ export function ProductsShowcase() {
           >
             Our{" "}
             <span
-              className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent relative inline-block"
-              style={{
-                backgroundSize: "200% 100%",
-                animation: isVisible
-                  ? "shimmer 3s ease-in-out infinite"
-                  : "none",
-              }}
+              className={`relative inline-block transition-all duration-1000 ${
+                isVisible
+                  ? "animate-color-shift"
+                  : "bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              }`}
             >
               Products
             </span>
