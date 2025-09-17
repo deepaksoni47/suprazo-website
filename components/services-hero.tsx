@@ -344,12 +344,25 @@ export function ServicesHero() {
             Comprehensive
           </span>
           <span
-            className={`block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-text-glow transition-all duration-800 ${
+            className={`block animate-text-glow transition-all duration-800 ${
               animationStep >= 2
                 ? "opacity-100 transform translate-y-0 animate-scale-in"
                 : "opacity-0 transform translate-y-12"
             }`}
-            style={{ transitionDelay: "200ms" }}
+            style={{
+              transitionDelay: "200ms",
+              background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+              fontSize: "inherit",
+              fontWeight: "inherit",
+              lineHeight: "inherit",
+              display: "block",
+              visibility: "visible",
+              opacity: "1 !important",
+            }}
           >
             IT Services
           </span>
