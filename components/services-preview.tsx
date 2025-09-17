@@ -1,11 +1,9 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Globe, Smartphone, Database, Brain, ArrowRight } from "lucide-react";
 import Link from "next/link";
-
 const services = [
   {
     icon: Globe,
@@ -56,7 +54,6 @@ const services = [
     ],
   },
 ];
-
 export function ServicesPreview() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -65,21 +62,16 @@ export function ServicesPreview() {
   );
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -100px 0px",
     };
-
-    // Observer for section header
     const sectionObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
       }
     }, observerOptions);
-
-    // Observer for individual cards
     const cardObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -99,21 +91,17 @@ export function ServicesPreview() {
       },
       { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
     );
-
     if (sectionRef.current) {
       sectionObserver.observe(sectionRef.current);
     }
-
     cardRefs.current.forEach((ref) => {
       if (ref) cardObserver.observe(ref);
     });
-
     return () => {
       sectionObserver.disconnect();
       cardObserver.disconnect();
     };
   }, []);
-
   return (
     <section ref={sectionRef} className="py-20 relative">
       <style jsx>{`
@@ -127,7 +115,6 @@ export function ServicesPreview() {
             transform: translateY(0);
           }
         }
-
         @keyframes slideInLeft {
           0% {
             opacity: 0;
@@ -138,7 +125,6 @@ export function ServicesPreview() {
             transform: translateX(0) scale(1);
           }
         }
-
         @keyframes slideInRight {
           0% {
             opacity: 0;
@@ -149,7 +135,6 @@ export function ServicesPreview() {
             transform: translateX(0) scale(1);
           }
         }
-
         @keyframes slideInUp {
           0% {
             opacity: 0;
@@ -160,7 +145,6 @@ export function ServicesPreview() {
             transform: translateY(0) scale(1);
           }
         }
-
         @keyframes fadeInScale {
           0% {
             opacity: 0;
@@ -174,7 +158,6 @@ export function ServicesPreview() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -183,32 +166,26 @@ export function ServicesPreview() {
             background-position: 200% 0;
           }
         }
-
         .animate-slide-up {
           animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-left {
           animation: slideInLeft 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-right {
           animation: slideInRight 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-in-up {
           animation: slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-fade-scale {
           animation: fadeInScale 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-shimmer {
           background: linear-gradient(
             90deg,
@@ -219,14 +196,12 @@ export function ServicesPreview() {
           background-size: 200% 100%;
           animation: shimmer 2s infinite;
         }
-
         .scroll-hidden {
           opacity: 0;
           transform: translateY(60px);
         }
       `}</style>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2
             className={`font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 transition-all duration-1000 ${
@@ -255,8 +230,6 @@ export function ServicesPreview() {
             needs and drive digital transformation.
           </p>
         </div>
-
-        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => {
             const IconComponent = service.icon;
@@ -266,7 +239,6 @@ export function ServicesPreview() {
               if (index % 4 === 2) return "animate-slide-in-up";
               return "animate-slide-right";
             };
-
             return (
               <Card
                 key={index}
@@ -299,10 +271,7 @@ export function ServicesPreview() {
                     <h3 className="font-heading font-semibold text-xl text-foreground mb-2">
                       {service.title}
                     </h3>
-
-                    {/* Content area that transitions between description and features */}
                     <div className="relative min-h-[102px] overflow-hidden">
-                      {/* Description - visible by default */}
                       <div
                         className={`absolute inset-0 transition-all duration-500 ease-in-out ${
                           hoveredIndex === index
@@ -314,8 +283,6 @@ export function ServicesPreview() {
                           {service.description}
                         </p>
                       </div>
-
-                      {/* Features - visible on hover */}
                       <div
                         className={`absolute inset-0 transition-all duration-500 ease-in-out ${
                           hoveredIndex === index
@@ -324,9 +291,6 @@ export function ServicesPreview() {
                         }`}
                       >
                         <div className="space-y-3">
-                          {/* <h4 className="text-sm font-semibold text-primary mb-3">
-                            Key Features:
-                          </h4> */}
                           <ul className="space-y-2">
                             {service.features.map((feature, featureIndex) => (
                               <li
@@ -352,8 +316,6 @@ export function ServicesPreview() {
             );
           })}
         </div>
-
-        {/* CTA */}
         <div className="text-center">
           <div
             className={`transition-all duration-1000 delay-1000 ${

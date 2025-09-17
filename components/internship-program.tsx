@@ -1,5 +1,4 @@
 "use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +9,6 @@ import {
   Calendar,
   ArrowRight,
 } from "lucide-react";
-
 const internshipTracks = [
   {
     title: "Frontend Development",
@@ -45,12 +43,10 @@ const internshipTracks = [
     color: "from-orange-500 to-red-500",
   },
 ];
-
 export function InternshipProgram() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Internship{" "}
@@ -63,8 +59,6 @@ export function InternshipProgram() {
             designed to provide real-world experience.
           </p>
         </div>
-
-        {/* Program Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
           <Card className="glass-card border-0 text-center">
             <CardContent className="p-6">
@@ -79,7 +73,6 @@ export function InternshipProgram() {
               </div>
             </CardContent>
           </Card>
-
           <Card className="glass-card border-0 text-center">
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-3 mx-auto">
@@ -91,7 +84,6 @@ export function InternshipProgram() {
               <div className="text-sm text-muted-foreground">Mentorship</div>
             </CardContent>
           </Card>
-
           <Card className="glass-card border-0 text-center">
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-3 mx-auto">
@@ -103,7 +95,6 @@ export function InternshipProgram() {
               <div className="text-sm text-muted-foreground">Projects</div>
             </CardContent>
           </Card>
-
           <Card className="glass-card border-0 text-center">
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-3 mx-auto">
@@ -116,8 +107,6 @@ export function InternshipProgram() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Internship Tracks */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {internshipTracks.map((track, index) => (
             <Card
@@ -139,11 +128,9 @@ export function InternshipProgram() {
                     {track.duration}
                   </Badge>
                 </div>
-
                 <p className="text-muted-foreground mb-4 leading-relaxed">
                   {track.description}
                 </p>
-
                 <div className="mb-4">
                   <h4 className="font-heading font-semibold text-foreground mb-2">
                     You'll Learn:
@@ -160,7 +147,6 @@ export function InternshipProgram() {
                     ))}
                   </div>
                 </div>
-
                 <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-all duration-300 hover:scale-105">
                   Apply for {track.title}
                 </Button>
@@ -168,8 +154,6 @@ export function InternshipProgram() {
             </Card>
           ))}
         </div>
-
-        {/* Application CTA */}
         <Card className="glass-card border-0">
           <CardContent className="p-8 md:p-12 text-center">
             <h3 className="font-heading font-bold text-2xl text-foreground mb-4">

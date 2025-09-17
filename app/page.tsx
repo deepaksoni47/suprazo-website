@@ -15,7 +15,6 @@ export default function HomePage() {
       <ServicesPreview />
       <ProductsShowcase />
       <CareersTeaser />
-      {/* <Footer /> */}
     </main>
   );
 }

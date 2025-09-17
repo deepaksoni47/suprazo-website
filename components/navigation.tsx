@@ -1,16 +1,13 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -18,7 +15,6 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -27,7 +23,6 @@ export function Navigation() {
     { href: "/contact", label: "Contact" },
     { href: "/careers", label: "Careers" },
   ];
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -38,20 +33,16 @@ export function Navigation() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <img
               src="/logo.png"
               alt="SuPrazo Technologies"
               className="h-8 w-auto"
             />
-
             <span className="font-heading font-bold text-xl text-foreground drop-shadow-sm">
               SuPrazo Technologies
             </span>
           </Link>
-
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -83,8 +74,6 @@ export function Navigation() {
               Get Started
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 rounded-lg bg-background/90 hover:bg-background transition-colors duration-200 shadow-md"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -97,8 +86,6 @@ export function Navigation() {
             )}
           </button>
         </div>
-
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-background/95 backdrop-blur-lg border border-white/20 mt-2 rounded-lg p-4 shadow-lg">
             <div className="flex flex-col space-y-4">

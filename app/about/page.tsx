@@ -23,7 +23,6 @@ export default function AboutPage() {
       <WhyChooseUs />
       <TeamSection />
       <AboutCTA />
-      {/* <Footer /> */}
     </main>
   );
 }

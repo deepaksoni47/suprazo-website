@@ -1,14 +1,11 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import { Sparkles, Users, Award, Globe } from "lucide-react";
-
 export function AboutHero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -16,14 +13,11 @@ export function AboutHero() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
-  // Intersection Observer for initial animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Staggered animation sequence
           const timeouts = [
             setTimeout(() => setAnimationStep(1), 200),
             setTimeout(() => setAnimationStep(2), 600),
@@ -35,20 +29,16 @@ export function AboutHero() {
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => observer.disconnect();
   }, []);
-
   const achievements = [
     { icon: Users, value: "50+", label: "Happy Clients" },
     { icon: Award, value: "150+", label: "Projects Completed" },
     { icon: Globe, value: "5+", label: "Years Experience" },
   ];
-
   return (
     <section
       ref={sectionRef}
@@ -67,7 +57,6 @@ export function AboutHero() {
             transform: translateY(-5px) rotate(-1deg);
           }
         }
-
         @keyframes slideInUp {
           from {
             opacity: 0;
@@ -78,7 +67,6 @@ export function AboutHero() {
             transform: translateY(0);
           }
         }
-
         @keyframes slideInDown {
           from {
             opacity: 0;
@@ -89,7 +77,6 @@ export function AboutHero() {
             transform: translateY(0);
           }
         }
-
         @keyframes scaleIn {
           from {
             opacity: 0;
@@ -100,7 +87,6 @@ export function AboutHero() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes fadeInScale {
           from {
             opacity: 0;
@@ -111,7 +97,6 @@ export function AboutHero() {
             transform: scale(1);
           }
         }
-
         @keyframes bounceIn {
           0% {
             opacity: 0;
@@ -129,7 +114,6 @@ export function AboutHero() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes glow {
           0%,
           100% {
@@ -141,7 +125,6 @@ export function AboutHero() {
               0 0 60px rgba(147, 51, 234, 0.2);
           }
         }
-
         @keyframes textGlow {
           0%,
           100% {
@@ -151,7 +134,6 @@ export function AboutHero() {
             text-shadow: 0 0 30px rgba(147, 51, 234, 0.5);
           }
         }
-
         @keyframes particleFloat {
           0%,
           100% {
@@ -171,7 +153,6 @@ export function AboutHero() {
             opacity: 0.4;
           }
         }
-
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
@@ -184,7 +165,6 @@ export function AboutHero() {
         .animate-particle-float {
           animation: particleFloat 8s ease-in-out infinite;
         }
-
         .animate-slide-in-up {
           animation: slideInUp 0.8s ease-out forwards;
         }
@@ -201,9 +181,7 @@ export function AboutHero() {
           animation: bounceIn 0.8s ease-out forwards;
         }
       `}</style>
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5">
-        {/* Interactive gradient orb */}
         <div
           className={`absolute w-96 h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl transition-all duration-1000 ease-out ${
             isVisible ? "opacity-70" : "opacity-0"
@@ -213,8 +191,6 @@ export function AboutHero() {
             top: mousePosition.y - 192,
           }}
         />
-
-        {/* Secondary gradient orbs */}
         <div
           className={`absolute w-64 h-64 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-2xl transition-all duration-1500 ease-out ${
             animationStep >= 1 ? "opacity-60" : "opacity-0"
@@ -233,8 +209,6 @@ export function AboutHero() {
             bottom: "30%",
           }}
         />
-
-        {/* Floating elements */}
         <div className="absolute inset-0">
           {achievements.map((achievement, index) => {
             const IconComponent = achievement.icon;
@@ -259,8 +233,6 @@ export function AboutHero() {
             );
           })}
         </div>
-
-        {/* Additional floating particles */}
         <div className="absolute inset-0">
           {[...Array(12)].map((_, i) => (
             <div
@@ -278,11 +250,8 @@ export function AboutHero() {
           ))}
         </div>
       </div>
-
-      {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
           <div
             className={`inline-flex items-center space-x-2 glass-card px-4 py-2 rounded-full mb-8 animate-glow transition-all duration-800 ${
               isVisible
@@ -295,8 +264,6 @@ export function AboutHero() {
               Our Story
             </span>
           </div>
-
-          {/* Main Heading */}
           <h1 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-tight">
             <span
               className={`block transition-all duration-800 ${
@@ -328,8 +295,6 @@ export function AboutHero() {
               of Technology
             </span>
           </h1>
-
-          {/* Subtitle */}
           <p
             className={`text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
               animationStep >= 3
@@ -342,8 +307,6 @@ export function AboutHero() {
             transforming businesses through innovative IT solutions and
             cutting-edge digital experiences.
           </p>
-
-          {/* Achievement Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
             {achievements.map((achievement, index) => {
               const IconComponent = achievement.icon;

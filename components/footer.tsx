@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
@@ -10,11 +9,9 @@ import {
   Phone,
   ArrowRight,
 } from "lucide-react";
-
 export function Footer() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [time, setTime] = useState(0);
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const rect = e.currentTarget as Element;
@@ -26,26 +23,21 @@ export function Footer() {
         });
       }
     };
-
     const animate = () => {
       setTime((prev) => prev + 0.01);
       requestAnimationFrame(animate);
     };
-
     animate();
-
     const footerElement = document.querySelector("footer");
     if (footerElement) {
       footerElement.addEventListener("mousemove", handleMouseMove as any);
     }
-
     return () => {
       if (footerElement) {
         footerElement.removeEventListener("mousemove", handleMouseMove as any);
       }
     };
   }, []);
-
   return (
     <footer className="glass-card-high-contrast mt-20 relative overflow-hidden">
       <style jsx>{`
@@ -61,7 +53,6 @@ export function Footer() {
             transform: translateY(-5px) rotate(-1deg);
           }
         }
-
         @keyframes pulse {
           0%,
           100% {
@@ -73,7 +64,6 @@ export function Footer() {
             transform: scale(1.05);
           }
         }
-
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -82,7 +72,6 @@ export function Footer() {
             background-position: 200% 0;
           }
         }
-
         @keyframes glow {
           0%,
           100% {
@@ -92,7 +81,6 @@ export function Footer() {
             box-shadow: 0 0 30px rgba(147, 51, 234, 0.5);
           }
         }
-
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
@@ -113,24 +101,19 @@ export function Footer() {
           animation: glow 3s ease-in-out infinite;
         }
       `}</style>
-
-      {/* Interactive Background */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Dynamic gradient orbs */}
         <div
           className="absolute w-96 h-96 rounded-full blur-3xl opacity-20 transition-all duration-700 ease-out"
           style={{
-            background: `radial-gradient(circle, 
-              hsla(${210 + Math.sin(time) * 30}, 70%, 60%, 0.4) 0%, 
-              hsla(${270 + Math.cos(time) * 40}, 80%, 70%, 0.3) 40%, 
+            background: `radial-gradient(circle,
+              hsla(${210 + Math.sin(time) * 30}, 70%, 60%, 0.4) 0%,
+              hsla(${270 + Math.cos(time) * 40}, 80%, 70%, 0.3) 40%,
               transparent 70%)`,
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
             transform: `scale(${1 + Math.sin(time * 0.5) * 0.1})`,
           }}
         />
-
-        {/* Floating particles */}
         <div className="absolute inset-0">
           {[...Array(20)].map((_, i) => (
             <div
@@ -139,8 +122,8 @@ export function Footer() {
               style={{
                 width: `${2 + Math.random() * 2}px`,
                 height: `${2 + Math.random() * 2}px`,
-                background: `radial-gradient(circle, 
-                  hsla(${210 + i * 20}, 70%, 70%, 0.6), 
+                background: `radial-gradient(circle,
+                  hsla(${210 + i * 20}, 70%, 70%, 0.6),
                   hsla(${270 + i * 15}, 80%, 80%, 0.4))`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -151,8 +134,6 @@ export function Footer() {
             />
           ))}
         </div>
-
-        {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -170,22 +151,18 @@ export function Footer() {
             }px)`,
           }}
         />
-
-        {/* Animated border glow */}
         <div
           className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-40"
           style={{
-            background: `linear-gradient(90deg, 
-              transparent 0%, 
-              hsla(${210 + Math.sin(time * 2) * 30}, 70%, 60%, 0.8) 50%, 
+            background: `linear-gradient(90deg,
+              transparent 0%,
+              hsla(${210 + Math.sin(time * 2) * 30}, 70%, 60%, 0.8) 50%,
               transparent 100%)`,
           }}
         />
       </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4 group">
               <div className="relative">
@@ -234,8 +211,6 @@ export function Footer() {
               </Link>
             </div>
           </div>
-
-          {/* Quick Links */}
           <div>
             <h3 className="font-heading font-semibold text-foreground mb-4 relative group">
               <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
@@ -263,8 +238,6 @@ export function Footer() {
               )}
             </ul>
           </div>
-
-          {/* Contact Info */}
           <div>
             <h3 className="font-heading font-semibold text-foreground mb-4 relative group">
               <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
@@ -296,7 +269,6 @@ export function Footer() {
             </div>
           </div>
         </div>
-
         <div className="relative border-t border-border mt-8 pt-8">
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
           <div className="text-center group">

@@ -1,7 +1,5 @@
 "use client"
-
 import { motion } from "framer-motion"
-
 export default function FloatingElements() {
   const elements = Array.from({ length: 6 }, (_, i) => ({
     id: i,
@@ -11,7 +9,6 @@ export default function FloatingElements() {
     duration: Math.random() * 10 + 10,
     delay: Math.random() * 5,
   }))
-
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
       {elements.map((element) => (

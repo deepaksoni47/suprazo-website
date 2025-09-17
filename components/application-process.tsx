@@ -1,8 +1,6 @@
 "use client"
-
 import { Card, CardContent } from "@/components/ui/card"
 import { FileText, Users, Code, CheckCircle } from "lucide-react"
-
 const processSteps = [
   {
     icon: FileText,
@@ -29,12 +27,10 @@ const processSteps = [
     color: "from-orange-500 to-red-500",
   },
 ]
-
 export function ApplicationProcess() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Application{" "}
@@ -44,27 +40,20 @@ export function ApplicationProcess() {
             Our streamlined hiring process is designed to be transparent, fair, and efficient for all candidates.
           </p>
         </div>
-
-        {/* Process Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {processSteps.map((step, index) => {
             const IconComponent = step.icon
             return (
               <Card key={index} className="glass-card border-0 transition-all duration-300 hover:scale-105 group">
                 <CardContent className="p-6 text-center">
-                  {/* Step Number */}
                   <div className="text-6xl font-heading font-bold text-primary/20 mb-4">
                     {String(index + 1).padStart(2, "0")}
                   </div>
-
-                  {/* Icon */}
                   <div
                     className={`w-16 h-16 bg-gradient-to-r ${step.color} rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:animate-glow transition-all duration-300`}
                   >
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-
-                  {/* Content */}
                   <h3 className="font-heading font-bold text-xl text-foreground mb-3">{step.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
                 </CardContent>
@@ -72,8 +61,6 @@ export function ApplicationProcess() {
             )
           })}
         </div>
-
-        {/* Timeline */}
         <Card className="glass-card border-0">
           <CardContent className="p-8 md:p-12">
             <h3 className="font-heading font-bold text-2xl text-foreground text-center mb-8">Typical Timeline</h3>

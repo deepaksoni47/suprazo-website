@@ -1,15 +1,12 @@
 "use client";
-
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { Code, Smartphone, Database, Brain, Sparkles } from "lucide-react";
-
 export function ServicesHero() {
   const [activeService, setActiveService] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
-
   const services = useMemo(
     () => [
       {
@@ -40,12 +37,9 @@ export function ServicesHero() {
     ],
     []
   );
-
-  // Mouse tracking for interactive background (throttled for performance)
   const handleMouseMove = useCallback((e: MouseEvent) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   }, []);
-
   useEffect(() => {
     let timeoutId: number;
     const throttledMouseMove = (e: MouseEvent) => {
@@ -53,17 +47,14 @@ export function ServicesHero() {
       timeoutId = window.setTimeout(() => {
         handleMouseMove(e);
         timeoutId = 0;
-      }, 16); // ~60fps
+      }, 16);
     };
-
     window.addEventListener("mousemove", throttledMouseMove);
     return () => {
       window.removeEventListener("mousemove", throttledMouseMove);
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [handleMouseMove]);
-
-  // Intersection Observer for scroll-triggered animations
   useEffect(() => {
     let timeouts: number[] = [];
     const observer = new IntersectionObserver(
@@ -83,16 +74,12 @@ export function ServicesHero() {
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
-
     return () => {
       observer.disconnect();
       timeouts.forEach((t) => clearTimeout(t));
     };
   }, []);
-
-  // Rotate active service icon focus
   useEffect(() => {
     if (animationStep < 4) return;
     const interval = window.setInterval(() => {
@@ -100,7 +87,6 @@ export function ServicesHero() {
     }, 3000);
     return () => clearInterval(interval);
   }, [animationStep, services.length]);
-
   return (
     <section
       ref={sectionRef}
@@ -230,10 +216,7 @@ export function ServicesHero() {
           animation: textGlow 4s ease-in-out infinite;
         }
       `}</style>
-
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5">
-        {/* Interactive gradient orb */}
         <div
           className={`absolute w-96 h-96 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-3xl transition-all duration-1000 ease-out ${
             isVisible ? "opacity-60" : "opacity-0"
@@ -244,14 +227,12 @@ export function ServicesHero() {
             willChange: "transform",
           }}
         />
-        {/* Secondary gradient orbs */}
         <div
           className={`absolute w-64 h-64 bg-gradient-to-r from-secondary/8 to-primary/8 rounded-full blur-2xl transition-all duration-1500 ease-out ${
             animationStep >= 2 ? "opacity-50" : "opacity-0"
           }`}
           style={{ right: "15%", top: "20%" }}
         />
-        {/* Floating service icons */}
         <div className="absolute inset-0">
           {services.map((service, index) => {
             const IconComponent = service.icon;
@@ -283,7 +264,6 @@ export function ServicesHero() {
             );
           })}
         </div>
-        {/* Decorative elements */}
         <div className="absolute inset-0">
           {[...Array(4)].map((_, i) => (
             <div
@@ -301,7 +281,6 @@ export function ServicesHero() {
             />
           ))}
         </div>
-        {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(8)].map((_, i) => (
             <div
@@ -322,7 +301,6 @@ export function ServicesHero() {
             />
           ))}
         </div>
-        {/* Ambient lights */}
         <div className="absolute inset-0">
           <div
             className={`absolute w-[600px] h-[400px] bg-gradient-radial from-primary/10 via-transparent to-transparent rounded-full blur-3xl transition-all duration-1000 ${
@@ -348,10 +326,7 @@ export function ServicesHero() {
           />
         </div>
       </div>
-
-      {/* Main Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto">
-        {/* Badge */}
         <div className="mb-8">
           <div
             className={`inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium transition-all duration-1000 ${
@@ -364,7 +339,6 @@ export function ServicesHero() {
             Our Services
           </div>
         </div>
-
         <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-tight">
           <span
             className={`block transition-all duration-800 ${
@@ -386,7 +360,6 @@ export function ServicesHero() {
             IT Services
           </span>
         </h1>
-
         <p
           className={`text-lg sm:text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
             animationStep >= 3
@@ -398,8 +371,6 @@ export function ServicesHero() {
           From concept to deployment, we provide end-to-end technology solutions
           that drive business growth and digital transformation.
         </p>
-
-        {/* Enhanced Service Stats */}
         <div
           className={`grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 transition-all duration-1000 ${
             animationStep >= 4
@@ -421,9 +392,7 @@ export function ServicesHero() {
               } overflow-hidden`}
               style={{ animationDelay: `${800 + index * 150}ms` }}
             >
-              {/* Hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-              {/* Animated background particles */}
               <div className="absolute inset-0">
                 {[...Array(2)].map((_, i) => (
                   <div
@@ -450,7 +419,6 @@ export function ServicesHero() {
                   {stat.label}
                 </div>
               </div>
-              {/* Hover border glow */}
               <div className="absolute inset-0 rounded-xl border border-primary/0 group-hover:border-primary/20 transition-colors duration-500" />
             </div>
           ))}

@@ -1,18 +1,14 @@
 "use client"
-
 import { useEffect, useState, useRef } from "react"
-
 interface StatItemProps {
   number: number
   label: string
   suffix?: string
 }
-
 function StatItem({ number, label, suffix = "" }: StatItemProps) {
   const [count, setCount] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -22,21 +18,17 @@ function StatItem({ number, label, suffix = "" }: StatItemProps) {
       },
       { threshold: 0.5 },
     )
-
     if (ref.current) {
       observer.observe(ref.current)
     }
-
     return () => observer.disconnect()
   }, [])
-
   useEffect(() => {
     if (isVisible) {
       const duration = 2000
       const steps = 60
       const increment = number / steps
       let current = 0
-
       const timer = setInterval(() => {
         current += increment
         if (current >= number) {
@@ -46,11 +38,9 @@ function StatItem({ number, label, suffix = "" }: StatItemProps) {
           setCount(Math.floor(current))
         }
       }, duration / steps)
-
       return () => clearInterval(timer)
     }
   }, [isVisible, number])
-
   return (
     <div ref={ref} className="text-center">
       <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
@@ -61,7 +51,6 @@ function StatItem({ number, label, suffix = "" }: StatItemProps) {
     </div>
   )
 }
-
 export function StatsSection() {
   return (
     <section className="py-20 relative">

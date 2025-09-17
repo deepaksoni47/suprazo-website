@@ -1,8 +1,6 @@
 "use client"
-
 import { Card, CardContent } from "@/components/ui/card"
 import { Shield, Zap, Users, Award, Clock, Globe } from "lucide-react"
-
 const reasons = [
   {
     icon: Shield,
@@ -43,12 +41,10 @@ const reasons = [
     color: "from-teal-500 to-green-500",
   },
 ]
-
 export function WhyChooseUs() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Why Choose{" "}
@@ -60,8 +56,6 @@ export function WhyChooseUs() {
             We combine technical expertise with business acumen to deliver solutions that truly make a difference.
           </p>
         </div>
-
-        {/* Reasons Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reasons.map((reason, index) => {
             const IconComponent = reason.icon
@@ -72,14 +66,11 @@ export function WhyChooseUs() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-6">
-                  {/* Icon */}
                   <div
                     className={`w-14 h-14 bg-gradient-to-r ${reason.color} rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow transition-all duration-300`}
                   >
                     <IconComponent className="w-7 h-7 text-white" />
                   </div>
-
-                  {/* Content */}
                   <h3 className="font-heading font-bold text-xl text-foreground mb-3">{reason.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{reason.description}</p>
                 </CardContent>

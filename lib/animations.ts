@@ -3,25 +3,21 @@ export const fadeInUp = {
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const fadeInLeft = {
   initial: { opacity: 0, x: -60 },
   animate: { opacity: 1, x: 0 },
   transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const fadeInRight = {
   initial: { opacity: 0, x: 60 },
   animate: { opacity: 1, x: 0 },
   transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const scaleIn = {
   initial: { opacity: 0, scale: 0.8 },
   animate: { opacity: 1, scale: 1 },
   transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const staggerContainer = {
   animate: {
     transition: {
@@ -30,19 +26,16 @@ export const staggerContainer = {
     },
   },
 }
-
 export const slideInFromBottom = {
   initial: { opacity: 0, y: 100 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const rotateIn = {
   initial: { opacity: 0, rotate: -10, scale: 0.9 },
   animate: { opacity: 1, rotate: 0, scale: 1 },
   transition: { duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] },
 }
-
 export const bounceIn = {
   initial: { opacity: 0, scale: 0.3 },
   animate: { opacity: 1, scale: 1 },
@@ -57,7 +50,6 @@ export const bounceIn = {
     },
   },
 }
-
 export const floatingAnimation = {
   animate: {
     y: [-10, 10, -10],
@@ -68,7 +60,6 @@ export const floatingAnimation = {
     },
   },
 }
-
 export const pulseGlow = {
   animate: {
     boxShadow: [

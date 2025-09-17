@@ -1,5 +1,4 @@
 "use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Mail,
@@ -10,7 +9,6 @@ import {
   Github,
   Twitter,
 } from "lucide-react";
-
 const contactDetails = [
   {
     icon: Mail,
@@ -27,13 +25,11 @@ const contactDetails = [
     color: "from-green-500 to-emerald-500",
   },
 ];
-
 const socialLinks = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
   { icon: Github, href: "#", label: "GitHub" },
   { icon: Twitter, href: "#", label: "Twitter" },
 ];
-
 export function ContactInfo() {
   return (
     <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
@@ -45,8 +41,6 @@ export function ContactInfo() {
           <p className="text-muted-foreground mb-8">
             Multiple ways to reach us. Choose what works best for you.
           </p>
-
-          {/* Contact Methods */}
           <div className="space-y-6 mb-12">
             {contactDetails.map((detail, index) => {
               const IconComponent = detail.icon;
@@ -79,8 +73,6 @@ export function ContactInfo() {
               );
             })}
           </div>
-
-          {/* Social Links */}
           <Card className="glass-card border-0">
             <CardContent className="p-8">
               <h3 className="font-heading font-semibold text-lg text-foreground mb-4">

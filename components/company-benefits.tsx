@@ -1,8 +1,6 @@
 "use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, DollarSign, BookOpen, Heart, Globe, Zap } from "lucide-react";
-
 const benefits = [
   {
     icon: Home,
@@ -47,12 +45,10 @@ const benefits = [
     color: "from-teal-500 to-green-500",
   },
 ];
-
 export function CompanyBenefits() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Why Work{" "}
@@ -65,8 +61,6 @@ export function CompanyBenefits() {
             environment where everyone can thrive.
           </p>
         </div>
-
-        {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit, index) => {
             const IconComponent = benefit.icon;
@@ -77,14 +71,11 @@ export function CompanyBenefits() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-6 text-center">
-                  {/* Icon */}
                   <div
                     className={`w-16 h-16 bg-gradient-to-r ${benefit.color} rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:animate-glow transition-all duration-300`}
                   >
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-
-                  {/* Content */}
                   <h3 className="font-heading font-bold text-xl text-foreground mb-3">
                     {benefit.title}
                   </h3>

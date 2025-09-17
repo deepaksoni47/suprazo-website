@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, MessageCircle, Calendar } from "lucide-react";
-
 export function AboutCTA() {
   return (
     <section className="py-20 relative">
@@ -9,7 +8,6 @@ export function AboutCTA() {
         <Card className="glass-card border-0 overflow-hidden">
           <CardContent className="p-0">
             <div className="relative">
-              {/* Background Pattern */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10">
                 <div
                   className="absolute inset-0 opacity-30"
@@ -21,7 +19,6 @@ export function AboutCTA() {
                   }}
                 />
               </div>
-
               <div className="relative z-10 p-8 md:p-12 text-center">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
                   Ready to Work{" "}
@@ -33,7 +30,6 @@ export function AboutCTA() {
                   Let's discuss how we can help transform your business with
                   innovative technology solutions tailored to your needs.
                 </p>
-
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Button
                     size="lg"
@@ -51,8 +47,6 @@ export function AboutCTA() {
                     Let's Talk
                   </Button>
                 </div>
-
-                {/* Additional Contact Options */}
                 <div className="mt-8 pt-8 border-t border-white/10">
                   <p className="text-muted-foreground mb-4">
                     Prefer a different approach?

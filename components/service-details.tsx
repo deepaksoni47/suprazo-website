@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ import {
   Sparkles,
   Cpu,
 } from "lucide-react";
-
 const serviceDetails = [
   {
     id: "web",
@@ -125,24 +123,18 @@ const serviceDetails = [
     color: "from-orange-500 to-red-500",
   },
 ];
-
 export function ServiceDetails() {
   const [activeService, setActiveService] = useState("web");
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-
   const currentService =
     serviceDetails.find((service) => service.id === activeService) ||
     serviceDetails[0];
-
   const handleServiceChange = (serviceId: string) => {
     if (serviceId === activeService || isTransitioning) return;
-
     setIsTransitioning(true);
-
-    // Small delay for smooth transition
     setTimeout(() => {
       setActiveService(serviceId);
       setTimeout(() => {
@@ -150,8 +142,6 @@ export function ServiceDetails() {
       }, 300);
     }, 150);
   };
-
-  // Intersection Observer for scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -166,11 +156,9 @@ export function ServiceDetails() {
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -268,15 +256,11 @@ export function ServiceDetails() {
           filter: blur(0);
         }
       `}</style>
-
-      {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-3xl" />
       </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Title */}
         <div
           className={`text-center mb-12 transition-all duration-1000 ${
             animationStep >= 1 ? "opacity-100 animate-slide-in-up" : "opacity-0"
@@ -296,14 +280,11 @@ export function ServiceDetails() {
             Comprehensive technology solutions tailored to your business needs
           </p>
         </div>
-
-        {/* Service Navigation */}
         <div
           className={`mb-12 sm:mb-16 transition-all duration-1000 ${
             animationStep >= 2 ? "opacity-100" : "opacity-0"
           }`}
         >
-          {/* Mobile Dropdown for small screens */}
           <div className="sm:hidden mb-6">
             <select
               value={activeService}
@@ -326,8 +307,6 @@ export function ServiceDetails() {
               ))}
             </select>
           </div>
-
-          {/* Desktop/Tablet Grid */}
           <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
             {serviceDetails.map((service, index) => {
               const IconComponent = service.icon;
@@ -367,8 +346,6 @@ export function ServiceDetails() {
             })}
           </div>
         </div>
-
-        {/* Service Detail Card */}
         <Card
           className={`glass-card border-0 overflow-hidden shadow-2xl transition-all duration-1000 ${
             animationStep >= 3
@@ -388,7 +365,6 @@ export function ServiceDetails() {
                   : "transform translate-y-0"
               }`}
             >
-              {/* Left Side - Service Info */}
               <div
                 className="p-6 sm:p-8 lg:p-12 animate-slide-in-left"
                 style={{ animationDelay: "0.2s" }}
@@ -408,12 +384,9 @@ export function ServiceDetails() {
                     </p>
                   </div>
                 </div>
-
                 <p className="text-muted-foreground text-base sm:text-lg mb-8 leading-relaxed">
                   {currentService.description}
                 </p>
-
-                {/* Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
                   <div className="glass-card p-4 rounded-lg text-center hover:scale-105 transition-all duration-300">
                     <div className="flex items-center justify-center mb-2">
@@ -449,7 +422,6 @@ export function ServiceDetails() {
                     </div>
                   </div>
                 </div>
-
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground w-full group relative overflow-hidden"
@@ -461,10 +433,7 @@ export function ServiceDetails() {
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                 </Button>
               </div>
-
-              {/* Right Side - Features & Technologies */}
               <div className="bg-gradient-to-br from-primary/5 to-secondary/5 backdrop-blur-sm p-4 md:p-6 lg:p-8 xl:p-12 space-y-6 md:space-y-8">
-                {/* Features */}
                 <div
                   className="animate-float-in"
                   style={{ animationDelay: "0.3s" }}
@@ -488,8 +457,6 @@ export function ServiceDetails() {
                     ))}
                   </div>
                 </div>
-
-                {/* Technologies */}
                 <div
                   className="animate-float-in"
                   style={{ animationDelay: "0.5s" }}

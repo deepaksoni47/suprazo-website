@@ -1,7 +1,5 @@
 "use client"
-
 import { Card, CardContent } from "@/components/ui/card"
-
 const techCategories = [
   {
     title: "Frontend",
@@ -34,12 +32,10 @@ const techCategories = [
     technologies: ["Git", "Figma", "Postman", "Jest", "Cypress", "Webpack"],
   },
 ]
-
 export function TechnologiesSection() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Technologies We{" "}
@@ -50,19 +46,14 @@ export function TechnologiesSection() {
             solutions.
           </p>
         </div>
-
-        {/* Technologies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {techCategories.map((category, index) => (
             <Card key={index} className="glass-card border-0 transition-all duration-300 hover:scale-105 group">
               <CardContent className="p-6">
-                {/* Category Header */}
                 <div className="flex items-center space-x-3 mb-4">
                   <div className={`w-3 h-3 bg-gradient-to-r ${category.color} rounded-full`} />
                   <h3 className="font-heading font-bold text-xl text-foreground">{category.title}</h3>
                 </div>
-
-                {/* Technologies */}
                 <div className="flex flex-wrap gap-2">
                   {category.technologies.map((tech, techIndex) => (
                     <span

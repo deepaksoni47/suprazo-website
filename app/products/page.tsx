@@ -19,7 +19,6 @@ export default function ProductsPage() {
       <ProductDetails />
       <ProductFeatures />
       <ProductsCTA />
-      {/* <Footer /> */}
     </main>
   );
 }

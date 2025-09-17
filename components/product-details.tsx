@@ -1,11 +1,9 @@
 "use client"
-
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Eye, Hand, CheckCircle, ArrowRight, Users, Shield, Zap, Globe, Smartphone, Brain } from "lucide-react"
-
 const productDetails = [
   {
     id: "campuseye",
@@ -64,16 +62,12 @@ const productDetails = [
     learnMoreUrl: "#",
   },
 ]
-
 export function ProductDetails() {
   const [activeProduct, setActiveProduct] = useState("campuseye")
-
   const currentProduct = productDetails.find((product) => product.id === activeProduct) || productDetails[0]
-
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Product Navigation */}
         <div className="flex justify-center gap-4 mb-16">
           {productDetails.map((product) => {
             const IconComponent = product.icon
@@ -105,12 +99,9 @@ export function ProductDetails() {
             )
           })}
         </div>
-
-        {/* Product Detail Card */}
         <Card className="glass-card border-0 overflow-hidden">
           <CardContent className="p-0">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-              {/* Left Side - Product Image */}
               <div className="relative h-96 lg:h-auto">
                 <img
                   src={currentProduct.image || "/placeholder.svg"}
@@ -127,8 +118,6 @@ export function ProductDetails() {
                   </Badge>
                 </div>
               </div>
-
-              {/* Right Side - Product Info */}
               <div className="p-8 lg:p-12">
                 <div className="flex items-center space-x-4 mb-6">
                   <div
@@ -141,10 +130,7 @@ export function ProductDetails() {
                     <p className="text-secondary font-medium">{currentProduct.subtitle}</p>
                   </div>
                 </div>
-
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{currentProduct.description}</p>
-
-                {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1 group">
                     Try Demo
@@ -158,8 +144,6 @@ export function ProductDetails() {
                     Learn More
                   </Button>
                 </div>
-
-                {/* Technologies */}
                 <div>
                   <h3 className="font-heading font-bold text-lg text-foreground mb-3">Built With</h3>
                   <div className="flex flex-wrap gap-2">
@@ -174,10 +158,7 @@ export function ProductDetails() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Features & Benefits */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16">
-          {/* Features */}
           <Card className="glass-card border-0">
             <CardContent className="p-8">
               <h3 className="font-heading font-bold text-2xl text-foreground mb-6">Key Features</h3>
@@ -191,8 +172,6 @@ export function ProductDetails() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Benefits */}
           <Card className="glass-card border-0">
             <CardContent className="p-8">
               <h3 className="font-heading font-bold text-2xl text-foreground mb-6">Benefits</h3>

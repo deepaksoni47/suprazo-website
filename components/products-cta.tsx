@@ -1,13 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Download, ExternalLink } from "lucide-react"
-
 export function ProductsCTA() {
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* CampusEye.ai CTA */}
           <Card className="glass-card border-0 overflow-hidden group hover:scale-[1.02] transition-all duration-300">
             <CardContent className="p-0">
               <div className="relative">
@@ -36,8 +34,6 @@ export function ProductsCTA() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Sign Language App CTA */}
           <Card className="glass-card border-0 overflow-hidden group hover:scale-[1.02] transition-all duration-300">
             <CardContent className="p-0">
               <div className="relative">
@@ -67,8 +63,6 @@ export function ProductsCTA() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Main CTA */}
         <Card className="glass-card border-0 overflow-hidden mt-12">
           <CardContent className="p-0">
             <div className="relative">
@@ -83,7 +77,6 @@ export function ProductsCTA() {
                   }}
                 />
               </div>
-
               <div className="relative z-10 p-8 md:p-12 text-center">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
                   Have a Product{" "}
@@ -94,7 +87,6 @@ export function ProductsCTA() {
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Let's bring your vision to life. We specialize in turning innovative ideas into market-ready products.
                 </p>
-
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold group transition-all duration-300 hover:scale-105"

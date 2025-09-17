@@ -1,8 +1,6 @@
 "use client"
-
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef } from "react"
-
 interface AnimatedCounterProps {
   value: number
   duration?: number
@@ -10,7 +8,6 @@ interface AnimatedCounterProps {
   prefix?: string
   className?: string
 }
-
 export default function AnimatedCounter({
   value,
   duration = 2,
@@ -23,13 +20,11 @@ export default function AnimatedCounter({
   const motionValue = useMotionValue(0)
   const springValue = useSpring(motionValue, { duration: duration * 1000 })
   const displayed = useTransform(springValue, (latest) => Math.round(latest))
-
   useEffect(() => {
     if (isInView) {
       motionValue.set(value)
     }
   }, [isInView, value, motionValue])
-
   return (
     <motion.span
       ref={ref}

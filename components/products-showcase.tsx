@@ -1,12 +1,10 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Hand, ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
-
 const products = [
   {
     id: "campuseye",
@@ -41,7 +39,6 @@ const products = [
     image: "/sign-language-translation-mobile-app-interface.jpg",
   },
 ];
-
 export function ProductsShowcase() {
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -50,21 +47,16 @@ export function ProductsShowcase() {
   );
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -100px 0px",
     };
-
-    // Observer for section header
     const sectionObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
       }
     }, observerOptions);
-
-    // Observer for individual cards
     const cardObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -84,21 +76,17 @@ export function ProductsShowcase() {
       },
       { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
     );
-
     if (sectionRef.current) {
       sectionObserver.observe(sectionRef.current);
     }
-
     cardRefs.current.forEach((ref) => {
       if (ref) cardObserver.observe(ref);
     });
-
     return () => {
       sectionObserver.disconnect();
       cardObserver.disconnect();
     };
   }, []);
-
   return (
     <section ref={sectionRef} className="py-20 relative">
       <style jsx>{`
@@ -112,7 +100,6 @@ export function ProductsShowcase() {
             transform: translateY(0);
           }
         }
-
         @keyframes slideInLeft {
           0% {
             opacity: 0;
@@ -123,7 +110,6 @@ export function ProductsShowcase() {
             transform: translateX(0) scale(1) rotateY(0deg);
           }
         }
-
         @keyframes slideInRight {
           0% {
             opacity: 0;
@@ -134,7 +120,6 @@ export function ProductsShowcase() {
             transform: translateX(0) scale(1) rotateY(0deg);
           }
         }
-
         @keyframes fadeInScale {
           0% {
             opacity: 0;
@@ -148,7 +133,6 @@ export function ProductsShowcase() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -157,7 +141,6 @@ export function ProductsShowcase() {
             background-position: 200% 0;
           }
         }
-
         @keyframes float {
           0%,
           100% {
@@ -167,7 +150,6 @@ export function ProductsShowcase() {
             transform: translateY(-10px);
           }
         }
-
         @keyframes pulseGlow {
           0%,
           100% {
@@ -178,27 +160,22 @@ export function ProductsShowcase() {
               0 0 60px rgba(59, 130, 246, 0.3);
           }
         }
-
         .animate-slide-up {
           animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-left {
           animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-right {
           animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-fade-scale {
           animation: fadeInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-shimmer {
           background: linear-gradient(
             90deg,
@@ -209,22 +186,18 @@ export function ProductsShowcase() {
           background-size: 200% 100%;
           animation: shimmer 2.5s infinite;
         }
-
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
-
         .animate-pulse-glow {
           animation: pulseGlow 3s ease-in-out infinite;
         }
-
         .scroll-hidden {
           opacity: 0;
           transform: translateY(60px);
         }
       `}</style>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2
             className={`font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 transition-all duration-1000 ${
@@ -253,8 +226,6 @@ export function ProductsShowcase() {
             development, and cutting-edge technology.
           </p>
         </div>
-
-        {/* Products Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {products.map((product, index) => {
             const IconComponent = product.icon;
@@ -280,7 +251,6 @@ export function ProductsShowcase() {
                 onMouseLeave={() => setHoveredProduct(null)}
               >
                 <CardContent className="p-0">
-                  {/* Product Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={product.image || "/placeholder.svg"}
@@ -307,8 +277,6 @@ export function ProductsShowcase() {
                         {product.status}
                       </Badge>
                     </div>
-
-                    {/* Floating decorative elements */}
                     <div
                       className="absolute top-6 left-6 w-2 h-2 bg-primary/60 rounded-full animate-float opacity-60"
                       style={{ animationDelay: "0s" }}
@@ -318,8 +286,6 @@ export function ProductsShowcase() {
                       style={{ animationDelay: "2s" }}
                     />
                   </div>
-
-                  {/* Product Content */}
                   <div className="p-6">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center relative overflow-hidden group-hover:animate-pulse-glow transition-all duration-300">
@@ -341,12 +307,9 @@ export function ProductsShowcase() {
                         </p>
                       </div>
                     </div>
-
                     <p className="text-muted-foreground mb-4">
                       {product.description}
                     </p>
-
-                    {/* Features */}
                     <div className="grid grid-cols-2 gap-2 mb-6">
                       {product.features.map((feature, index) => (
                         <div
@@ -358,8 +321,6 @@ export function ProductsShowcase() {
                         </div>
                       ))}
                     </div>
-
-                    {/* Action Buttons */}
                     <div
                       className={`flex space-x-3 transition-all duration-300 ${
                         hoveredProduct === product.id
@@ -388,8 +349,6 @@ export function ProductsShowcase() {
             );
           })}
         </div>
-
-        {/* CTA */}
         <div className="text-center">
           <div
             className={`transition-all duration-1000 delay-1000 ${

@@ -1,9 +1,7 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Heart, Sparkles, ArrowRight } from "lucide-react";
-
 const values = [
   {
     icon: Target,
@@ -30,7 +28,6 @@ const values = [
     gradient: "from-green-500/20 via-emerald-500/10 to-transparent",
   },
 ];
-
 export function MissionVision() {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [headerVisible, setHeaderVisible] = useState(false);
@@ -39,7 +36,6 @@ export function MissionVision() {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -47,7 +43,6 @@ export function MissionVision() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
   useEffect(() => {
     const headerObserver = new IntersectionObserver(
       ([entry]) => {
@@ -57,14 +52,11 @@ export function MissionVision() {
       },
       { threshold: 0.3 }
     );
-
     if (sectionRef.current) {
       headerObserver.observe(sectionRef.current);
     }
-
     return () => headerObserver.disconnect();
   }, []);
-
   useEffect(() => {
     const statsObserver = new IntersectionObserver(
       ([entry]) => {
@@ -74,18 +66,14 @@ export function MissionVision() {
       },
       { threshold: 0.3 }
     );
-
     if (statsRef.current) {
       statsObserver.observe(statsRef.current);
     }
-
     return () => statsObserver.disconnect();
   }, []);
-
   useEffect(() => {
     const observers = itemRefs.current.map((ref, index) => {
       if (!ref) return null;
-
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -99,16 +87,13 @@ export function MissionVision() {
         },
         { threshold: 0.2 }
       );
-
       observer.observe(ref);
       return observer;
     });
-
     return () => {
       observers.forEach((observer) => observer?.disconnect());
     };
   }, []);
-
   return (
     <section ref={sectionRef} className="py-20 relative overflow-hidden">
       <style jsx>{`
@@ -122,7 +107,6 @@ export function MissionVision() {
             transform: translateY(0);
           }
         }
-
         @keyframes slideInLeft {
           from {
             opacity: 0;
@@ -133,7 +117,6 @@ export function MissionVision() {
             transform: translateX(0);
           }
         }
-
         @keyframes slideInRight {
           from {
             opacity: 0;
@@ -144,7 +127,6 @@ export function MissionVision() {
             transform: translateX(0);
           }
         }
-
         @keyframes scaleIn {
           from {
             opacity: 0;
@@ -155,7 +137,6 @@ export function MissionVision() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes bounceIn {
           0% {
             opacity: 0;
@@ -173,7 +154,6 @@ export function MissionVision() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes glow {
           0%,
           100% {
@@ -185,7 +165,6 @@ export function MissionVision() {
               0 0 60px rgba(147, 51, 234, 0.2);
           }
         }
-
         @keyframes pulse {
           0%,
           100% {
@@ -197,7 +176,6 @@ export function MissionVision() {
             transform: scale(1.05);
           }
         }
-
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -206,7 +184,6 @@ export function MissionVision() {
             background-position: 200% 0;
           }
         }
-
         @keyframes float {
           0%,
           100% {
@@ -216,7 +193,6 @@ export function MissionVision() {
             transform: translateY(-10px);
           }
         }
-
         @keyframes countUp {
           from {
             transform: translateY(20px);
@@ -227,7 +203,6 @@ export function MissionVision() {
             opacity: 1;
           }
         }
-
         .animate-slide-in-up {
           animation: slideInUp 0.8s ease-out forwards;
         }
@@ -266,10 +241,7 @@ export function MissionVision() {
           animation: shimmer 2s infinite;
         }
       `}</style>
-
-      {/* Interactive Background */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Mouse-following gradient */}
         <div
           className="absolute w-96 h-96 bg-gradient-to-r from-primary/8 to-secondary/8 rounded-full blur-3xl opacity-60 transition-all duration-1000 ease-out"
           style={{
@@ -277,8 +249,6 @@ export function MissionVision() {
             top: mousePosition.y - 192,
           }}
         />
-
-        {/* Floating particles */}
         <div className="absolute inset-0">
           {[...Array(12)].map((_, i) => (
             <div
@@ -300,7 +270,6 @@ export function MissionVision() {
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
         <div
           className={`text-center mb-16 transition-all duration-1000 ${
             headerVisible
@@ -314,7 +283,6 @@ export function MissionVision() {
               Our Foundation
             </span>
           </div>
-
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 leading-tight">
             <span
               className={`block transition-all duration-800 ${
@@ -348,8 +316,6 @@ export function MissionVision() {
             every solution we create.
           </p>
         </div>
-
-        {/* Mission, Vision, Values Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {values.map((item, index) => {
             const IconComponent = item.icon;
@@ -360,7 +326,6 @@ export function MissionVision() {
                 : index === 1
                 ? "animate-slide-in-up"
                 : "animate-slide-in-right";
-
             return (
               <div
                 key={index}
@@ -377,13 +342,10 @@ export function MissionVision() {
               >
                 <Card className="glass-card border border-white/10 hover:border-white/20 transition-all duration-500 group hover:shadow-2xl h-full">
                   <CardContent className="p-8 text-center h-full flex flex-col relative overflow-hidden">
-                    {/* Background gradient on hover */}
                     <div
                       className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                     />
-
                     <div className="relative z-10">
-                      {/* Icon */}
                       <div
                         className={`w-20 h-20 bg-gradient-to-r ${
                           item.color
@@ -394,24 +356,16 @@ export function MissionVision() {
                       >
                         <IconComponent className="w-10 h-10 text-white transition-transform duration-300 group-hover:scale-110" />
                       </div>
-
-                      {/* Title */}
                       <h3 className="font-heading font-bold text-2xl text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
                         {item.title}
                       </h3>
-
-                      {/* Content */}
                       <p className="text-foreground/80 leading-relaxed flex-grow group-hover:text-foreground/90 transition-colors duration-300 mb-6">
                         {item.content}
                       </p>
-
-                      {/* Hover arrow */}
                       <div className="flex justify-center">
                         <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1" />
                       </div>
                     </div>
-
-                    {/* Shimmer effect */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer" />
                   </CardContent>
                 </Card>
@@ -419,8 +373,6 @@ export function MissionVision() {
             );
           })}
         </div>
-
-        {/* Additional Stats */}
         <div
           ref={statsRef}
           className={`mt-20 glass-card p-8 md:p-12 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 group hover:shadow-2xl ${
@@ -468,8 +420,6 @@ export function MissionVision() {
               </div>
             ))}
           </div>
-
-          {/* Background gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
       </div>

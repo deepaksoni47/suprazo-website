@@ -1,41 +1,32 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Eye, Hand, Sparkles, Zap, Code, Smartphone } from "lucide-react";
-
 export function ProductsHero() {
   const [activeProduct, setActiveProduct] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-
-          // Staggered animation sequence
           const timeouts = [
             setTimeout(() => setAnimationStep(1), 200),
             setTimeout(() => setAnimationStep(2), 600),
             setTimeout(() => setAnimationStep(3), 1000),
             setTimeout(() => setAnimationStep(4), 1400),
           ];
-
           return () => timeouts.forEach(clearTimeout);
         }
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => observer.disconnect();
   }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -114,9 +105,7 @@ export function ProductsHero() {
           animation: pulse-glow 2s ease-in-out infinite;
         }
       `}</style>
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/50 to-secondary/10">
-        {/* Geometric Background Elements */}
         <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse-glow" />
         <div
           className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-3xl animate-pulse-glow"
@@ -126,8 +115,6 @@ export function ProductsHero() {
           className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-xl animate-pulse-glow"
           style={{ animationDelay: "2s" }}
         />
-
-        {/* Optimized Product-themed particles */}
         <div className="absolute inset-0">
           {[...Array(20)].map((_, i) => (
             <div
@@ -148,8 +135,6 @@ export function ProductsHero() {
             />
           ))}
         </div>
-
-        {/* Floating product icons */}
         <div
           className={`absolute inset-0 transition-opacity duration-1000 ${
             animationStep >= 1 ? "opacity-100" : "opacity-0"
@@ -181,11 +166,8 @@ export function ProductsHero() {
           </div>
         </div>
       </div>
-
-      {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
           <div
             className={`inline-flex items-center space-x-2 glass-card px-6 py-3 rounded-full mb-8 backdrop-blur-sm border border-white/10 transition-all duration-1000 ${
               animationStep >= 1
@@ -198,8 +180,6 @@ export function ProductsHero() {
               Innovation in Action
             </span>
           </div>
-
-          {/* Main Title */}
           <h1
             className={`font-heading font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-6 leading-tight transition-all duration-1000 ${
               animationStep >= 2
@@ -213,8 +193,6 @@ export function ProductsHero() {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 blur-lg animate-pulse-glow -z-10" />
             </span>
           </h1>
-
-          {/* Description */}
           <p
             className={`text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
               animationStep >= 3
@@ -225,8 +203,6 @@ export function ProductsHero() {
             Discover our flagship products that showcase our expertise in AI,
             mobile development, and innovative technology solutions.
           </p>
-
-          {/* Call-to-action buttons */}
           <div
             className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 ${
               animationStep >= 4
@@ -240,7 +216,6 @@ export function ProductsHero() {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             </button>
-
             <button className="group glass-card px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105">
               <span className="text-foreground font-semibold group-hover:text-primary transition-colors duration-300">
                 View Demo
@@ -249,14 +224,11 @@ export function ProductsHero() {
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
           animationStep >= 2 ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Corner decorations */}
         <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-primary/20 animate-pulse-glow" />
         <div
           className="absolute top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-secondary/20 animate-pulse-glow"

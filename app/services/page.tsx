@@ -21,7 +21,6 @@ export default function ServicesPage() {
       <ProcessSection />
       <TechnologiesSection />
       <ServicesCTA />
-      {/* <Footer /> */}
     </main>
   );
 }

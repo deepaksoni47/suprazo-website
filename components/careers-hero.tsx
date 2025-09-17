@@ -1,24 +1,18 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Users, Rocket, Heart, Code, ArrowRight, Sparkles } from "lucide-react";
-
 export function CareersHero() {
   const [activeIcon, setActiveIcon] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
   const icons = [Users, Rocket, Heart, Code];
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-
-          // Staggered animation sequence
           const timeouts = [
             setTimeout(() => setAnimationStep(1), 200),
             setTimeout(() => setAnimationStep(2), 600),
@@ -26,27 +20,22 @@ export function CareersHero() {
             setTimeout(() => setAnimationStep(4), 1400),
             setTimeout(() => setAnimationStep(5), 1800),
           ];
-
           return () => timeouts.forEach(clearTimeout);
         }
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => observer.disconnect();
   }, []);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIcon((prev) => (prev + 1) % icons.length);
     }, 2000);
     return () => clearInterval(interval);
   }, [icons.length]);
-
   return (
     <section
       ref={sectionRef}
@@ -144,9 +133,7 @@ export function CareersHero() {
           animation: bounce-in 0.6s ease-out forwards;
         }
       `}</style>
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/50 to-primary/10">
-        {/* Geometric Background Elements */}
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse-glow" />
         <div
           className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-3xl animate-pulse-glow"
@@ -156,8 +143,6 @@ export function CareersHero() {
           className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-xl animate-pulse-glow"
           style={{ animationDelay: "2s" }}
         />
-
-        {/* Floating career-themed icons */}
         <div
           className={`absolute inset-0 transition-opacity duration-1000 ${
             animationStep >= 1 ? "opacity-100" : "opacity-0"
@@ -184,11 +169,8 @@ export function CareersHero() {
           ))}
         </div>
       </div>
-
-      {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
           <div
             className={`inline-flex items-center space-x-2 glass-card px-6 py-3 rounded-full mb-8 backdrop-blur-sm border border-white/10 transition-all duration-1000 ${
               animationStep >= 1
@@ -201,8 +183,6 @@ export function CareersHero() {
               Join Our Team
             </span>
           </div>
-
-          {/* Main Title */}
           <h1
             className={`font-heading font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-6 leading-tight transition-all duration-1000 ${
               animationStep >= 2
@@ -217,8 +197,6 @@ export function CareersHero() {
             </span>
             <span className="block">Journey</span>
           </h1>
-
-          {/* Description */}
           <p
             className={`text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
               animationStep >= 3
@@ -230,8 +208,6 @@ export function CareersHero() {
             We're looking for passionate individuals who want to make a real
             impact.
           </p>
-
-          {/* Key Stats */}
           <div
             className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-2xl mx-auto transition-all duration-1000 ${
               animationStep >= 4 ? "opacity-100" : "opacity-0"
@@ -276,8 +252,6 @@ export function CareersHero() {
               <div className="text-xs text-muted-foreground">Opportunities</div>
             </div>
           </div>
-
-          {/* CTA Buttons */}
           <div
             className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 ${
               animationStep >= 5
@@ -304,14 +278,11 @@ export function CareersHero() {
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
           animationStep >= 2 ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Corner decorations */}
         <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-primary/20 animate-pulse-glow rounded-tl-lg" />
         <div
           className="absolute top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-secondary/20 animate-pulse-glow rounded-tr-lg"

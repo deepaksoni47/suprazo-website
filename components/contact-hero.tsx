@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import {
   Mail,
@@ -10,40 +9,32 @@ import {
   MessageCircle,
   Send,
 } from "lucide-react";
-
 export function ContactHero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-
-          // Staggered animation sequence
           const timeouts = [
             setTimeout(() => setAnimationStep(1), 200),
             setTimeout(() => setAnimationStep(2), 600),
             setTimeout(() => setAnimationStep(3), 1000),
             setTimeout(() => setAnimationStep(4), 1400),
           ];
-
           return () => timeouts.forEach(clearTimeout);
         }
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => observer.disconnect();
   }, []);
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -51,7 +42,6 @@ export function ContactHero() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -149,9 +139,7 @@ export function ContactHero() {
           animation: bounce-in 0.6s ease-out forwards;
         }
       `}</style>
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/50 to-secondary/10">
-        {/* Geometric Background Elements */}
         <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse-glow" />
         <div
           className="absolute bottom-20 left-20 w-48 h-48 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full blur-3xl animate-pulse-glow"
@@ -161,8 +149,6 @@ export function ContactHero() {
           className="absolute top-1/3 left-1/3 w-24 h-24 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-xl animate-pulse-glow"
           style={{ animationDelay: "2s" }}
         />
-
-        {/* Interactive gradient orb that follows mouse */}
         <div
           className="absolute w-80 h-80 md:w-96 md:h-96 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-full blur-3xl opacity-60 transition-all duration-700 ease-out pointer-events-none"
           style={{
@@ -171,8 +157,6 @@ export function ContactHero() {
             transform: `translate3d(0, 0, 0)`,
           }}
         />
-
-        {/* Additional floating elements for visual richness */}
         <div
           className={`absolute inset-0 transition-opacity duration-1000 ${
             animationStep >= 2 ? "opacity-100" : "opacity-0"
@@ -192,11 +176,8 @@ export function ContactHero() {
           </div>
         </div>
       </div>
-
-      {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
           <div
             className={`inline-flex items-center space-x-2 glass-card px-6 py-3 rounded-full mb-8 backdrop-blur-sm border border-white/10 transition-all duration-1000 ${
               animationStep >= 1
@@ -209,8 +190,6 @@ export function ContactHero() {
               Let's Connect
             </span>
           </div>
-
-          {/* Main Title */}
           <h1
             className={`font-heading font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-6 leading-tight transition-all duration-1000 ${
               animationStep >= 2
@@ -224,7 +203,6 @@ export function ContactHero() {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 blur-lg animate-pulse-glow -z-10" />
             </span>
           </h1>
-
           <p
             className={`text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 ${
               animationStep >= 3
@@ -235,8 +213,6 @@ export function ContactHero() {
             Ready to transform your business with innovative technology
             solutions? Let's start the conversation.
           </p>
-
-          {/* Call-to-action buttons */}
           <div
             className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 ${
               animationStep >= 4
@@ -251,7 +227,6 @@ export function ContactHero() {
                 Start a Project
               </span>
             </button>
-
             <button className="group glass-card px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105 relative overflow-hidden">
               <div className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="text-foreground font-semibold group-hover:text-primary transition-colors duration-300 relative z-10">
@@ -261,14 +236,11 @@ export function ContactHero() {
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
           animationStep >= 2 ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Corner decorations with contact theme */}
         <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-primary/20 animate-pulse-glow rounded-tl-lg" />
         <div
           className="absolute top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-secondary/20 animate-pulse-glow rounded-tr-lg"
@@ -282,8 +254,6 @@ export function ContactHero() {
           className="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-primary/20 animate-pulse-glow rounded-br-lg"
           style={{ animationDelay: "1.5s" }}
         />
-
-        {/* Additional contact-themed decorative lines */}
         <div
           className="absolute top-1/2 left-0 w-16 h-0.5 bg-gradient-to-r from-transparent to-primary/30 animate-pulse-glow"
           style={{ animationDelay: "2s" }}

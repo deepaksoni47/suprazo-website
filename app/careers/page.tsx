@@ -21,7 +21,6 @@ export default function CareersPage() {
       <CompanyBenefits />
       <InternshipProgram />
       <ApplicationProcess />
-      {/* <Footer /> */}
     </main>
   );
 }

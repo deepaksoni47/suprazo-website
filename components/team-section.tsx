@@ -1,10 +1,8 @@
 "use client";
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Linkedin, Github, Twitter } from "lucide-react";
-
 const teamMembers = [
   {
     id: 1,
@@ -90,7 +88,6 @@ const teamMembers = [
     },
   },
 ];
-
 const departments = [
   "All",
   "Leadership",
@@ -98,22 +95,18 @@ const departments = [
   "Design",
   "Operations",
 ];
-
 export function TeamSection() {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [hoveredMember, setHoveredMember] = useState<number | null>(null);
-
   const filteredMembers =
     selectedDepartment === "All"
       ? teamMembers
       : teamMembers.filter(
           (member) => member.department === selectedDepartment
         );
-
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Meet Our{" "}
@@ -125,8 +118,6 @@ export function TeamSection() {
             Our diverse team of experts brings together years of experience and
             passion for creating exceptional technology solutions.
           </p>
-
-          {/* Department Filter */}
           <div className="flex flex-wrap justify-center gap-2">
             {departments.map((dept) => (
               <button
@@ -143,8 +134,6 @@ export function TeamSection() {
             ))}
           </div>
         </div>
-
-        {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredMembers.map((member) => (
             <Card
@@ -154,7 +143,6 @@ export function TeamSection() {
               onMouseLeave={() => setHoveredMember(null)}
             >
               <CardContent className="p-0">
-                {/* Member Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
                     src={
@@ -165,8 +153,6 @@ export function TeamSection() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-
-                  {/* Social Links - Show on hover */}
                   <div
                     className={`absolute top-4 right-4 flex space-x-2 transition-all duration-300 ${
                       hoveredMember === member.id
@@ -199,8 +185,6 @@ export function TeamSection() {
                       </a>
                     )}
                   </div>
-
-                  {/* Department Badge */}
                   <div className="absolute bottom-4 left-4">
                     <Badge
                       variant="secondary"
@@ -210,8 +194,6 @@ export function TeamSection() {
                     </Badge>
                   </div>
                 </div>
-
-                {/* Member Info */}
                 <div className="p-6">
                   <h3 className="font-heading font-bold text-xl text-foreground mb-1">
                     {member.name}
@@ -222,8 +204,6 @@ export function TeamSection() {
                   <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
                     {member.bio}
                   </p>
-
-                  {/* Skills */}
                   <div className="flex flex-wrap gap-1">
                     {member.skills.map((skill, index) => (
                       <Badge
@@ -240,8 +220,6 @@ export function TeamSection() {
             </Card>
           ))}
         </div>
-
-        {/* Join Team CTA */}
         <div className="mt-16 text-center">
           <Card className="glass-card border-0 inline-block">
             <CardContent className="p-8">

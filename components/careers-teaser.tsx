@@ -1,42 +1,34 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Rocket, Heart, ArrowRight } from "lucide-react";
 import Link from "next/link";
-
 export function CareersTeaser() {
   const [isVisible, setIsVisible] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const observerOptions = {
       threshold: 0.3,
       rootMargin: "0px 0px -100px 0px",
     };
-
     const sectionObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
-        // Trigger different animation steps with delays
         setTimeout(() => setAnimationStep(1), 200);
         setTimeout(() => setAnimationStep(2), 600);
         setTimeout(() => setAnimationStep(3), 1000);
         setTimeout(() => setAnimationStep(4), 1400);
       }
     }, observerOptions);
-
     if (sectionRef.current) {
       sectionObserver.observe(sectionRef.current);
     }
-
     return () => {
       sectionObserver.disconnect();
     };
   }, []);
-
   return (
     <section ref={sectionRef} className="py-20 relative">
       <style jsx>{`
@@ -50,7 +42,6 @@ export function CareersTeaser() {
             transform: translateY(0);
           }
         }
-
         @keyframes bounceIn {
           0% {
             opacity: 0;
@@ -68,7 +59,6 @@ export function CareersTeaser() {
             transform: scale(1) translateY(0);
           }
         }
-
         @keyframes slideInLeft {
           0% {
             opacity: 0;
@@ -79,7 +69,6 @@ export function CareersTeaser() {
             transform: translateX(0) scale(1);
           }
         }
-
         @keyframes slideInRight {
           0% {
             opacity: 0;
@@ -90,7 +79,6 @@ export function CareersTeaser() {
             transform: translateX(0) scale(1);
           }
         }
-
         @keyframes fadeInScale {
           0% {
             opacity: 0;
@@ -104,7 +92,6 @@ export function CareersTeaser() {
             transform: scale(1) rotate(0deg);
           }
         }
-
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -113,7 +100,6 @@ export function CareersTeaser() {
             background-position: 200% 0;
           }
         }
-
         @keyframes pulse {
           0%,
           100% {
@@ -125,7 +111,6 @@ export function CareersTeaser() {
             box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
           }
         }
-
         @keyframes countUp {
           0% {
             opacity: 0;
@@ -136,7 +121,6 @@ export function CareersTeaser() {
             transform: translateY(0) scale(1);
           }
         }
-
         @keyframes float {
           0%,
           100% {
@@ -146,36 +130,29 @@ export function CareersTeaser() {
             transform: translateY(-15px);
           }
         }
-
         .animate-slide-up {
           animation: slideUpFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-bounce-in {
           animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)
             forwards;
         }
-
         .animate-slide-left {
           animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-slide-right {
           animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-fade-scale {
           animation: fadeInScale 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
             forwards;
         }
-
         .animate-count-up {
           animation: countUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
-
         .animate-shimmer {
           background: linear-gradient(
             90deg,
@@ -186,15 +163,12 @@ export function CareersTeaser() {
           background-size: 200% 100%;
           animation: shimmer 2s infinite;
         }
-
         .animate-pulse-glow {
           animation: pulse 3s ease-in-out infinite;
         }
-
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
-
         .scroll-hidden {
           opacity: 0;
           transform: translateY(60px);
@@ -208,7 +182,6 @@ export function CareersTeaser() {
         >
           <CardContent className="p-0">
             <div className="relative">
-              {/* Background Pattern */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10">
                 <div
                   className={`absolute inset-0 transition-opacity duration-1000 delay-300 ${
@@ -221,16 +194,13 @@ export function CareersTeaser() {
                     `,
                   }}
                 />
-                {/* Animated shimmer overlay */}
                 <div
                   className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${
                     animationStep >= 1 ? "opacity-30 animate-shimmer" : ""
                   }`}
                 />
               </div>
-
               <div className="relative z-10 p-8 md:p-12 text-center">
-                {/* Icons */}
                 <div className="flex justify-center space-x-4 mb-6">
                   <div
                     className={`w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-300 ${
@@ -293,8 +263,6 @@ export function CareersTeaser() {
                     />
                   </div>
                 </div>
-
-                {/* Content */}
                 <h2
                   className={`font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 transition-all duration-800 ${
                     animationStep >= 1 ? "animate-slide-up" : "scroll-hidden"
@@ -325,8 +293,6 @@ export function CareersTeaser() {
                   technology. We offer exciting opportunities for growth,
                   learning, and making a real impact.
                 </p>
-
-                {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div
                     className={`text-center transition-all duration-600 ${
@@ -380,8 +346,6 @@ export function CareersTeaser() {
                     </div>
                   </div>
                 </div>
-
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <div
                     className={`transition-all duration-700 ${

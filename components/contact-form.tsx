@@ -1,7 +1,5 @@
 "use client"
-
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Send, CheckCircle } from "lucide-react"
-
 export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -23,18 +20,12 @@ export function ContactForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 2000))
-
     setIsSubmitting(false)
     setIsSubmitted(true)
-
-    // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({
@@ -48,11 +39,9 @@ export function ContactForm() {
       })
     }, 3000)
   }
-
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
-
   if (isSubmitted) {
     return (
       <section className="py-20 flex items-center justify-center">
@@ -68,7 +57,6 @@ export function ContactForm() {
       </section>
     )
   }
-
   return (
     <section className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,9 +66,7 @@ export function ContactForm() {
             <p className="text-muted-foreground mb-8">
               Fill out the form below and we'll get back to you as soon as possible.
             </p>
-
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name and Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-foreground">
@@ -111,8 +97,6 @@ export function ContactForm() {
                   />
                 </div>
               </div>
-
-              {/* Phone and Company */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-foreground">
@@ -141,8 +125,6 @@ export function ContactForm() {
                   />
                 </div>
               </div>
-
-              {/* Service and Budget */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="service" className="text-foreground">
@@ -180,8 +162,6 @@ export function ContactForm() {
                   </Select>
                 </div>
               </div>
-
-              {/* Message */}
               <div className="space-y-2">
                 <Label htmlFor="message" className="text-foreground">
                   Project Details *
@@ -195,8 +175,6 @@ export function ContactForm() {
                   required
                 />
               </div>
-
-              {/* Submit Button */}
               <Button
                 type="submit"
                 size="lg"
