@@ -618,6 +618,6 @@ _If this project helped you, please consider giving it a ⭐ star on GitHub!_
 
 ---
 
-_Made with 💙 by SuPrazo Technologies_
+_Made with 💙 by Deepak Soni_
 
 </div>
