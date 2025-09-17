@@ -343,12 +343,7 @@ export function ServicesHero() {
           >
             Comprehensive
           </span>
-          <span
-            className={`inline-block animate-text-glow bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent ${
-              animationStep >= 2 ? "animate-scale-in" : "opacity-0"
-            }`}
-            style={{ transitionDelay: "200ms" }}
-          >
+          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
             IT Services
           </span>
         </h1>
